@@ -1,0 +1,4 @@
+/home/ringanaaro/Programacion/cumec/build/CMakeFiles/cumec.dir
+/home/ringanaaro/Programacion/cumec/build/CMakeFiles/inclHead.dir
+/home/ringanaaro/Programacion/cumec/build/CMakeFiles/edit_cache.dir
+/home/ringanaaro/Programacion/cumec/build/CMakeFiles/rebuild_cache.dir

@@ -1,4 +1,4 @@
-/* cumec - A lightweight overlay volume/anything bar for the X Window System.
+/* cumec - A lightweight metronome that can be fully customizable.
  * Copyright (C) 2021 Florent Ch.
  *
  * cumec is free software: you can redistribute it and/or modify
@@ -15,10 +15,16 @@
  * along with cumec.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "metronome.h"
+#include <SDL3/SDL_audio.h>
+#include <SDL3/SDL_init.h>
+#include <SDL3/SDL_timer.h>
+#include <unistd.h> // for usleep()
 #include <errno.h>
+#include <stdio.h>
 
-void PlayAudio(char* filename, unsigned int delay) {
+#include "metronome.h"
+
+void PlayAudio(char* filename, Uint32 delay) {
     SDL_Init(SDL_INIT_AUDIO);
 
     // Variables of the audio file
@@ -30,21 +36,21 @@ void PlayAudio(char* filename, unsigned int delay) {
     // the length of the file, adjusting this parameters correctly
     if (!SDL_LoadWAV(filename, &wavSpecifier, &wavBuffer, &wavLength)) {
         printf("Error loading the wav-file %s. Value of errno: %d\n", filename, errno);
-        return 1;
+        return;
     }
 
     // SDL3 works with streams
     // direct this stream into the default audio device
-    SDL_AudioStream* stream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK.
+    SDL_AudioStream* stream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK,
                                                         &wavSpecifier,
                                                         NULL,
                                                         NULL);
 
     SDL_PutAudioStreamData(stream, wavBuffer, wavLength); // load audio to stream
 
-    SDL_ResumAudioStreamDevice(stream);
+    SDL_ResumeAudioStreamDevice(stream);
 
-    SDL_Delay(4); // time of playing the audio (in ms)
+    SDL_Delay(delay); // time of playing the audio (in ms)
 
     SDL_free(wavBuffer);
     SDL_free(stream);
@@ -52,5 +58,18 @@ void PlayAudio(char* filename, unsigned int delay) {
 }
 
 
+
+
 void StartMetronome(TimeSignature metre) {
+    useconds_t time_pulses = (useconds_t) 60000000 / metre.bpm; // time (in microseconds) between two pulses
+    Uint8 counter = 0;
+    while (true) {
+        usleep(time_pulses);
+        if (counter % metre.beat == 0)
+            printf("Strong beat done\n");
+        else
+            printf("Beat done\n");
+        counter++;
+    }
+    printf("Metronome closed ");
 }

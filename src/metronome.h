@@ -1,4 +1,4 @@
-/* cumec - A lightweight overlay volume/anything bar for the X Window System.
+/* cumec - A lightweight metronome that can be fully customizable.
  * Copyright (C) 2021 Florent Ch.
  *
  * cumec is free software: you can redistribute it and/or modify
@@ -15,11 +15,13 @@
  * along with cumec.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSIC_H
-#define MUSIC_H
+#ifndef METRONOME_H
+#define METRONOME_H
 
 #include <SDL3/SDL_audio.h>
-#include <SDL/SDL_timer.h>
+#include <SDL3/SDL_init.h>
+#include <SDL3/SDL_timer.h>
+#include <unistd.h> // for usleep()
 
 typedef struct {
     unsigned int beat;
@@ -27,10 +29,10 @@ typedef struct {
 } TimeSignature;
 
 
-void PlayAudio(char* filename, unsigned int delay);
+void PlayAudio(char* filename, Uint32 delay);
 
 void StartMetronome(TimeSignature metre);
 
 void PauseMetronome();
 
-#endif /* MUSIC_H */
+#endif /* METRONOME_H */
