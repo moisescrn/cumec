@@ -72,28 +72,28 @@ include CMakeFiles/cumec.dir/flags.make
 CMakeFiles/cumec.dir/codegen:
 .PHONY : CMakeFiles/cumec.dir/codegen
 
-CMakeFiles/cumec.dir/main.c.o: CMakeFiles/cumec.dir/flags.make
-CMakeFiles/cumec.dir/main.c.o: /home/ringanaaro/Programacion/cumec/main.c
-CMakeFiles/cumec.dir/main.c.o: CMakeFiles/cumec.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ringanaaro/Programacion/cumec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/cumec.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/cumec.dir/main.c.o -MF CMakeFiles/cumec.dir/main.c.o.d -o CMakeFiles/cumec.dir/main.c.o -c /home/ringanaaro/Programacion/cumec/main.c
+CMakeFiles/cumec.dir/src/main.c.o: CMakeFiles/cumec.dir/flags.make
+CMakeFiles/cumec.dir/src/main.c.o: /home/ringanaaro/Programacion/cumec/src/main.c
+CMakeFiles/cumec.dir/src/main.c.o: CMakeFiles/cumec.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ringanaaro/Programacion/cumec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/cumec.dir/src/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/cumec.dir/src/main.c.o -MF CMakeFiles/cumec.dir/src/main.c.o.d -o CMakeFiles/cumec.dir/src/main.c.o -c /home/ringanaaro/Programacion/cumec/src/main.c
 
-CMakeFiles/cumec.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/cumec.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ringanaaro/Programacion/cumec/main.c > CMakeFiles/cumec.dir/main.c.i
+CMakeFiles/cumec.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/cumec.dir/src/main.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ringanaaro/Programacion/cumec/src/main.c > CMakeFiles/cumec.dir/src/main.c.i
 
-CMakeFiles/cumec.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/cumec.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ringanaaro/Programacion/cumec/main.c -o CMakeFiles/cumec.dir/main.c.s
+CMakeFiles/cumec.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/cumec.dir/src/main.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ringanaaro/Programacion/cumec/src/main.c -o CMakeFiles/cumec.dir/src/main.c.s
 
 # Object files for target cumec
 cumec_OBJECTS = \
-"CMakeFiles/cumec.dir/main.c.o"
+"CMakeFiles/cumec.dir/src/main.c.o"
 
 # External object files for target cumec
 cumec_EXTERNAL_OBJECTS =
 
-/home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/main.c.o
+/home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/src/main.c.o
 /home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/build.make
 /home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/compiler_depend.ts
 /home/ringanaaro/Programacion/cumec/bin/cumec: /usr/lib/libSDL3.so.0.4.8

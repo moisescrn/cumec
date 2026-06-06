@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/ringanaaro/Programacion/cumec/src
 
-C_FLAGS = 
+C_FLAGS = -g
 

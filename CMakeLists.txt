@@ -7,7 +7,7 @@ add_executable(cumec) # name of executable target
 
 target_sources(cumec
     PRIVATE
-      main.c
+      src/main.c
 )
 
 set_target_properties(cumec 
@@ -43,3 +43,7 @@ target_link_libraries (cumec
       SDL3::SDL3
       inclHead
 )
+
+
+target_compile_options(cumec PRIVATE -g)
+target_compile_options(inclHead PRIVATE -g)

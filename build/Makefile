@@ -149,29 +149,29 @@ inclHead/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/build
 .PHONY : inclHead/fast
 
-main.o: main.c.o
-.PHONY : main.o
+src/main.o: src/main.c.o
+.PHONY : src/main.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cumec.dir/build.make CMakeFiles/cumec.dir/main.c.o
-.PHONY : main.c.o
+src/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cumec.dir/build.make CMakeFiles/cumec.dir/src/main.c.o
+.PHONY : src/main.c.o
 
-main.i: main.c.i
-.PHONY : main.i
+src/main.i: src/main.c.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cumec.dir/build.make CMakeFiles/cumec.dir/main.c.i
-.PHONY : main.c.i
+src/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cumec.dir/build.make CMakeFiles/cumec.dir/src/main.c.i
+.PHONY : src/main.c.i
 
-main.s: main.c.s
-.PHONY : main.s
+src/main.s: src/main.c.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cumec.dir/build.make CMakeFiles/cumec.dir/main.c.s
-.PHONY : main.c.s
+src/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cumec.dir/build.make CMakeFiles/cumec.dir/src/main.c.s
+.PHONY : src/main.c.s
 
 src/metronome.o: src/metronome.c.o
 .PHONY : src/metronome.o
@@ -208,9 +208,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... cumec"
 	@echo "... inclHead"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/metronome.o"
 	@echo "... src/metronome.i"
 	@echo "... src/metronome.s"

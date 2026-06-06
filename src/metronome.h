@@ -28,11 +28,17 @@ typedef struct {
     unsigned int bpm;
 } TimeSignature;
 
+typedef struct {
+    TimeSignature* metre;
+    bool* paused;
+} MetrState;
+
 
 void PlayAudio(char* filename, Uint32 delay);
 
-void StartMetronome(TimeSignature metre);
-
-void PauseMetronome();
+// We want to allow multithreading, so this functions need this type and arguments
+// then the arguments will be set inside the function
+void* StartMetronome(void* arg); // MetrState* state
+void* KeyboardCmds(void* arg); // bool* paused
 
 #endif /* METRONOME_H */

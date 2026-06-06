@@ -48,5 +48,11 @@ CMakeFiles/inclHead.dir/src/metronome.c.o: \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
  /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h \
+ /usr/include/bits/stdio_lim.h /usr/include/termios.h \
+ /usr/include/bits/termios.h /usr/include/bits/termios-struct.h \
+ /usr/include/bits/termios-c_cc.h /usr/include/bits/termios-c_iflag.h \
+ /usr/include/bits/termios-c_oflag.h /usr/include/bits/termios-c_cflag.h \
+ /usr/include/bits/termios-cbaud.h /usr/include/bits/termios-c_lflag.h \
+ /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \
+ /usr/include/bits/termios-baud.h /usr/include/sys/ttydefaults.h \
  /home/ringanaaro/Programacion/cumec/src/metronome.h
