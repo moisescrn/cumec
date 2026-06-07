@@ -22,8 +22,8 @@
 
 int main(void) {
     TimeSignature vals; 
-    vals.beat = 3;
-    vals.bpm = 180;
+    vals.beat = 4;
+    vals.bpm = 140;
 
     bool pause = false;
 
@@ -31,16 +31,14 @@ int main(void) {
     sttt.metre = &vals;
     sttt.paused = &pause;
 
-    pthread_t threadMetr, threadPause;
+    pthread_t threadMetr, threadKeyboard;
 
     pthread_create(&threadMetr, NULL, StartMetronome, &sttt);
-    pthread_create(&threadPause, NULL, KeyboardCmds, &pause);
+    pthread_create(&threadKeyboard, NULL, KeyboardCmds, &pause);
 
     // Let both threads run independently
     pthread_join(threadMetr, NULL);
-    pthread_join(threadPause, NULL);
+    pthread_join(threadKeyboard, NULL);
     
-
-    printf("It has worked");
     return 0;
 }

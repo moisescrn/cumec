@@ -33,9 +33,6 @@ typedef struct {
     bool* paused;
 } MetrState;
 
-
-void PlayAudio(char* filename, Uint32 delay);
-
 // We want to allow multithreading, so this functions need this type and arguments
 // then the arguments will be set inside the function
 void* StartMetronome(void* arg); // MetrState* state

@@ -25,58 +25,72 @@
 
 #include "metronome.h"
 
-void PlayAudio(char* filename, Uint32 delay) {
+void* StartMetronome(void* arg) {
+    /* --------- Initialize metronome variables --------- */
+    MetrState* state = (MetrState*) arg;
+    useconds_t time_pulses = (useconds_t) 60000000 / (state->metre->bpm); // time (in microseconds) between two pulses
+    time_pulses = time_pulses - 100000; // quit 300 miliseconds
+    Uint8 counter = 0;
+
+    /* --------- Define audio SDL variables --------- */
     SDL_Init(SDL_INIT_AUDIO);
 
-    // Variables of the audio file
-    SDL_AudioSpec wavSpecifier;
-    Uint8* wavBuffer;
-    Uint32 wavLength;
+    // Variables of both audio files
+    SDL_AudioSpec wavSpec1;
+    Uint8* wavBuffer1;
+    Uint32 wavLength1;
+    SDL_AudioSpec wavSpec2;
+    Uint8* wavBuffer2;
+    Uint32 wavLength2;
 
     // SDL_LoadWAV sets the Buffer-pointer to the audio file, and determines
     // the length of the file, adjusting this parameters correctly
-    if (!SDL_LoadWAV(filename, &wavSpecifier, &wavBuffer, &wavLength)) {
-        printf("Error loading the wav-file %s. Value of errno: %d\n", filename, errno);
-        return;
+    if (!SDL_LoadWAV("src/AudioFiles/fuerte.wav", &wavSpec1, &wavBuffer1, &wavLength1)) {
+        printf("Error loading the wav-file '%s'. Value of errno: %d\n", "AudioFiles/fuerte.wav", errno);
+        return NULL;
+    }
+    if (!SDL_LoadWAV("src/AudioFiles/flojo.wav", &wavSpec2, &wavBuffer2, &wavLength2)) {
+        printf("Error loading the wav-file '%s'. Value of errno: %d\n", "AudioFiles/flojo.wav", errno);
+        return NULL;
     }
 
     // SDL3 works with streams
-    // direct this stream into the default audio device
+    // direct the streamm into the default audio device
+    // we only need one stream, since strong and weak beats are never simultaneous
     SDL_AudioStream* stream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK,
-                                                        &wavSpecifier,
+                                                        &wavSpec1,
                                                         NULL,
                                                         NULL);
 
-    SDL_PutAudioStreamData(stream, wavBuffer, wavLength); // load audio to stream
-
-    SDL_ResumeAudioStreamDevice(stream);
-
-    SDL_Delay(delay); // time of playing the audio (in ms)
-
-    SDL_free(wavBuffer); // do not free stream without finishing the thread!!
-    SDL_Quit();
-}
-
-void* StartMetronome(void* arg) {
-    MetrState* state = (MetrState*) arg;
-
-    useconds_t time_pulses = (useconds_t) 60000000 / (state->metre->bpm); // time (in microseconds) between two pulses
-    time_pulses = time_pulses - 300000; // quit 300 miliseconds
-    Uint8 counter = 0;
-
+    /* --------- Metronome loop --------- */
+    // Let's interpreat a beat of 0, as if it had no strong beats
+    if (state->metre->beat == 0) { // repeat weak beat
+        while (!(*(state->paused))) {
+            usleep(time_pulses);
+            SDL_PutAudioStreamData(stream,wavBuffer2, wavLength2); // load audio to stream
+//            printf("Beat done\n");
+            SDL_ResumeAudioStreamDevice(stream);
+            SDL_Delay(110);
+        }
+    }
     while (!(*(state->paused))) {
         usleep(time_pulses);
         if (counter % (state->metre->beat) == 0) {
-            PlayAudio("src/AudioFiles/fuerte.wav", 300);
-            printf("Strong beat done\n");
+            SDL_PutAudioStreamData(stream, wavBuffer1, wavLength1); // load audio to stream
+//            printf("Strong beat done\n");
         }
         else {
-            PlayAudio("src/AudioFiles/flojo.wav", 300);
-            printf("Beat done\n");
+            SDL_PutAudioStreamData(stream, wavBuffer2, wavLength2); // load audio to stream
+//            printf("Beat done\n");
         }
+        SDL_ResumeAudioStreamDevice(stream);
+        SDL_Delay(110);
         counter++;
     }
-    printf("Metronome closed ");
+    SDL_free(wavBuffer1);
+    SDL_free(wavBuffer2);
+    SDL_Quit();
+//    printf("Metronome closed ");
     return NULL;
 }
 
@@ -111,7 +125,7 @@ void* KeyboardCmds(void* arg) {
     while (true) {
         c = getchar();
         switch (c) {
-            case 'q': printf("QUITTING\n"); break;
+            case 'q': printf("METRONOME QUITTED!\n"); *paused = !(*paused); return NULL; break;
             case 'p': *paused = !(*paused); break;
             case 'r': printf("RESUMING\n"); break;
             default: printf("uknown command\n"); break;
