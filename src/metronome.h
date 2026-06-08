@@ -31,11 +31,15 @@ typedef struct {
 typedef struct {
     TimeSignature* metre;
     bool* paused;
+    bool* quit;
 } MetrState;
 
 // We want to allow multithreading, so this functions need this type and arguments
 // then the arguments will be set inside the function
-void* StartMetronome(void* arg); // MetrState* state
-void* KeyboardCmds(void* arg); // bool* paused
+void* Metronome(void* arg);   // MetrState* state
+void* KeyboardCmds(void* arg);     // MetrState* state
+                                   // These are passed as arguments to modify the metronome behaviour
+
+void ChangeSignature();            // Change beat and/or bpm
 
 #endif /* METRONOME_H */

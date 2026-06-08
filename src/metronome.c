@@ -21,18 +21,19 @@
 #include <unistd.h> // for usleep()
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h> // for free()
 #include <termios.h>
 
 #include "metronome.h"
 
-void* StartMetronome(void* arg) {
+void* Metronome(void* arg) {
     /* --------- Initialize metronome variables --------- */
     MetrState* state = (MetrState*) arg;
     useconds_t time_pulses = (useconds_t) 60000000 / (state->metre->bpm); // time (in microseconds) between two pulses
     time_pulses = time_pulses - 100000; // quit 300 miliseconds
     Uint8 counter = 0;
 
-    /* --------- Define audio SDL variables --------- */
+    /* --------- Define audio SDL3 variables --------- */
     SDL_Init(SDL_INIT_AUDIO);
 
     // Variables of both audio files
@@ -63,39 +64,58 @@ void* StartMetronome(void* arg) {
                                                         NULL);
 
     /* --------- Metronome loop --------- */
+playing:                          // label for goto statement
     // Let's interpreat a beat of 0, as if it had no strong beats
     if (state->metre->beat == 0) { // repeat weak beat
-        while (!(*(state->paused))) {
+        while ( !(*(state->paused)) ) { // stops when we change the variable paused to true
             usleep(time_pulses);
             SDL_PutAudioStreamData(stream,wavBuffer2, wavLength2); // load audio to stream
-//            printf("Beat done\n");
+            printf("Beat done\n");
             SDL_ResumeAudioStreamDevice(stream);
             SDL_Delay(110);
         }
     }
-    while (!(*(state->paused))) {
+
+    while ( !(*(state->paused)) ) { // stops when we change the paused or quit to true
         usleep(time_pulses);
-        if (counter % (state->metre->beat) == 0) {
-            SDL_PutAudioStreamData(stream, wavBuffer1, wavLength1); // load audio to stream
-//            printf("Strong beat done\n");
+        if (counter % (state->metre->beat) == 0) {    // strong beat
+            SDL_PutAudioStreamData(stream, wavBuffer1, wavLength1);
         }
-        else {
-            SDL_PutAudioStreamData(stream, wavBuffer2, wavLength2); // load audio to stream
-//            printf("Beat done\n");
+        else {                                        // weak beat
+            SDL_PutAudioStreamData(stream, wavBuffer2, wavLength2);
         }
         SDL_ResumeAudioStreamDevice(stream);
-        SDL_Delay(110);
+        SDL_Delay(110);                               // beat duration
         counter++;
     }
-    SDL_free(wavBuffer1);
-    SDL_free(wavBuffer2);
-    SDL_Quit();
-//    printf("Metronome closed ");
-    return NULL;
+    
+    /* --------- Quit metronome --------- */
+    // If metronome is to be quitted then quit is set to true
+quit:
+    if (*(state->quit)) {
+        SDL_free(wavBuffer1);
+        SDL_free(wavBuffer2);
+        SDL_Quit();
+        return NULL;
+    }
+
+    /* --------- Resume metronome --------- */
+    // If metronome has been paused, it will enter this loop
+    // waiting for being resumed
+    while (true) {
+        if ( !(*(state->paused)) )     // resume
+            goto playing;
+        if ( (*(state->quit)) )        // quit while being in pause mode
+            goto quit;
+    }
+}
+
+void ChangeSignature() {
+
 }
 
 /* **************** KEYWORD COMMANDS **************** */
-/* I want that pressing one key is enough to pause, quit, resume,
+/* I want that pressing one key is enough to quit, to pause or to resume
  * the metronome, but by default, pressing enter is necessary.
  * To avoid it we need to disable line buffering on the terminal
  * with help of termios
@@ -118,19 +138,22 @@ void restore_terminal() {
 }
 
 void* KeyboardCmds(void* arg) {
-    bool* paused = (bool*) arg;
+    MetrState* state = (MetrState*) arg;
 
     set_raw_mode();
     int c;
     while (true) {
         c = getchar();
         switch (c) {
-            case 'q': printf("METRONOME QUITTED!\n"); *paused = !(*paused); return NULL; break;
-            case 'p': *paused = !(*paused); break;
-            case 'r': printf("RESUMING\n"); break;
+            case 'q': printf("METRONOME QUITTED!\n");
+                      *(state->quit) = true;            // quit metronome
+                      *(state->paused) = true;                       // pause to exist the loop
+                      return NULL; break;
+            case 'p': *(state->paused) = !(*(state->paused)); break; // pause and resume
             default: printf("uknown command\n"); break;
         }
     }
+    // I think this two lines are never reached
     restore_terminal();
     return NULL;
 }

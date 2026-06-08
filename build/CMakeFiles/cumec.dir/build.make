@@ -96,7 +96,7 @@ cumec_EXTERNAL_OBJECTS =
 /home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/src/main.c.o
 /home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/build.make
 /home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/compiler_depend.ts
-/home/ringanaaro/Programacion/cumec/bin/cumec: /usr/lib/libSDL3.so.0.4.8
+/home/ringanaaro/Programacion/cumec/bin/cumec: /usr/lib/libSDL3.so.0.4.10
 /home/ringanaaro/Programacion/cumec/bin/cumec: libinclHead.a
 /home/ringanaaro/Programacion/cumec/bin/cumec: CMakeFiles/cumec.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ringanaaro/Programacion/cumec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable /home/ringanaaro/Programacion/cumec/bin/cumec"

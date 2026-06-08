@@ -22,19 +22,21 @@
 
 int main(void) {
     TimeSignature vals; 
-    vals.beat = 4;
+    vals.beat = 0;
     vals.bpm = 140;
 
     bool pause = false;
+    bool Qu = false;
 
     MetrState sttt;
     sttt.metre = &vals;
     sttt.paused = &pause;
+    sttt.quit = &Qu;
 
     pthread_t threadMetr, threadKeyboard;
 
-    pthread_create(&threadMetr, NULL, StartMetronome, &sttt);
-    pthread_create(&threadKeyboard, NULL, KeyboardCmds, &pause);
+    pthread_create(&threadMetr, NULL, Metronome, &sttt);
+    pthread_create(&threadKeyboard, NULL, KeyboardCmds, &sttt);
 
     // Let both threads run independently
     pthread_join(threadMetr, NULL);

@@ -1,1 +1,1 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/cumec.dir/link.d CMakeFiles/cumec.dir/src/main.c.o -o /home/ringanaaro/Programacion/cumec/bin/cumec  /usr/lib/libSDL3.so.0.4.8 libinclHead.a
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/cumec.dir/link.d CMakeFiles/cumec.dir/src/main.c.o -o /home/ringanaaro/Programacion/cumec/bin/cumec  /usr/lib/libSDL3.so.0.4.10 libinclHead.a

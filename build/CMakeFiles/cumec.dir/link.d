@@ -3,7 +3,7 @@
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/crtbeginS.o \
   CMakeFiles/cumec.dir/src/main.c.o \
-  /usr/lib/libSDL3.so.0.4.8 \
+  /usr/lib/libSDL3.so.0.4.10 \
   libinclHead.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/libgcc.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/../../../../lib/libgcc_s_asneeded.so \
@@ -46,7 +46,7 @@
 
 CMakeFiles/cumec.dir/src/main.c.o:
 
-/usr/lib/libSDL3.so.0.4.8:
+/usr/lib/libSDL3.so.0.4.10:
 
 libinclHead.a:
 
