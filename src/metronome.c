@@ -21,7 +21,6 @@
 #include <unistd.h> // for usleep()
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h> // for free()
 #include <termios.h>
 
 #include "metronome.h"
@@ -30,7 +29,7 @@ void* Metronome(void* arg) {
     /* --------- Initialize metronome variables --------- */
     MetrState* state = (MetrState*) arg;
     useconds_t time_pulses = (useconds_t) 60000000 / (state->metre->bpm); // time (in microseconds) between two pulses
-    time_pulses = time_pulses - 100000; // quit 300 miliseconds
+    time_pulses = time_pulses - 100000; // quit 100 miliseconds
     Uint8 counter = 0;
 
     /* --------- Define audio SDL3 variables --------- */
@@ -64,13 +63,16 @@ void* Metronome(void* arg) {
                                                         NULL);
 
     /* --------- Metronome loop --------- */
-playing:                          // label for goto statement
+playing:                                // label for goto statement
+    time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
+    time_pulses = time_pulses - 100000; // quit 100 miliseconds
+    counter = 0;
+
     // Let's interpreat a beat of 0, as if it had no strong beats
-    if (state->metre->beat == 0) { // repeat weak beat
+    if (state->metre->beat == 0) {      // repeat weak beat
         while ( !(*(state->paused)) ) { // stops when we change the variable paused to true
             usleep(time_pulses);
             SDL_PutAudioStreamData(stream,wavBuffer2, wavLength2); // load audio to stream
-            printf("Beat done\n");
             SDL_ResumeAudioStreamDevice(stream);
             SDL_Delay(110);
         }
@@ -78,6 +80,8 @@ playing:                          // label for goto statement
 
     while ( !(*(state->paused)) ) { // stops when we change the paused or quit to true
         usleep(time_pulses);
+        if (state->metre->beat == 0) // we could set the beat to 0, while being inside the loop
+            goto playing;
         if (counter % (state->metre->beat) == 0) {    // strong beat
             SDL_PutAudioStreamData(stream, wavBuffer1, wavLength1);
         }
@@ -110,8 +114,37 @@ quit:
     }
 }
 
-void ChangeSignature() {
+/* **************** MODIFYING FUNCTIONS **************** */
+/* These functions modify the metre of the metronome
+ * and will be invoked by keyboard commands
+*/
 
+void ChangeBeat(TimeSignature* metre, char new_beat_char) {
+    unsigned int new_beat = new_beat_char - '0';
+    metre->beat = new_beat;
+}
+
+void IncreaseBPM(TimeSignature* metre) {
+    (metre->bpm)++;
+}
+
+void DecreaseBPM(TimeSignature* metre) {
+    if ( (metre->bpm) == 1 )
+        return;
+    (metre->bpm)--;
+}
+
+void Increase10BPM(TimeSignature* metre) {
+    metre->bpm += 10;
+}
+
+void Decrease10BPM(TimeSignature* metre) {
+    if ( (metre->bpm) == 1 )
+        return;
+    if ( (metre->bpm) < 10 ) {
+        return;
+    }
+    metre->bpm -= 10;
 }
 
 /* **************** KEYWORD COMMANDS **************** */
@@ -144,16 +177,34 @@ void* KeyboardCmds(void* arg) {
     int c;
     while (true) {
         c = getchar();
-        switch (c) {
-            case 'q': printf("METRONOME QUITTED!\n");
-                      *(state->quit) = true;            // quit metronome
-                      *(state->paused) = true;                       // pause to exist the loop
-                      return NULL; break;
-            case 'p': *(state->paused) = !(*(state->paused)); break; // pause and resume
-            default: printf("uknown command\n"); break;
+        printf("Beat: %u\n", state->metre->beat);
+        printf("BPM: %u\n", state->metre->bpm);
+        printf("Paused: %d\n", *(state->paused));
+        printf("Quit: %d\n", *(state->quit));
+        fflush(stdout);
+
+        printf("INPUT COMMANDS: ");
+
+        printf("%c",c);
+        if ( strchr("0123456789",c) ) {       // change beat
+            ChangeBeat(state->metre,c);
+        }
+        else {
+            switch (c) {
+                case 'q': printf("METRONOME QUITTED!\n");
+                          *(state->quit) = true;            // quit metronome
+                          *(state->paused) = true;                       // pause to exist the loop
+                          return NULL; break;
+                case 'p': *(state->paused) = !(*(state->paused)); break; // pause and resume
+                // Modifiying functions
+                case '+': IncreaseBPM(state->metre); break;
+                case '-': DecreaseBPM(state->metre); break;
+                case '.': Increase10BPM(state->metre); break;
+                case ',': Decrease10BPM(state->metre); break;
+                default: printf("uknown command\n"); break;
+            }
         }
     }
-    // I think this two lines are never reached
     restore_terminal();
     return NULL;
 }

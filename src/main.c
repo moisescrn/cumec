@@ -22,7 +22,7 @@
 
 int main(void) {
     TimeSignature vals; 
-    vals.beat = 0;
+    vals.beat = 5;
     vals.bpm = 140;
 
     bool pause = false;

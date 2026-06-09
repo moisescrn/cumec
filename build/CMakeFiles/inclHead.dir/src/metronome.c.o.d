@@ -48,25 +48,11 @@ CMakeFiles/inclHead.dir/src/metronome.c.o: \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
  /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h /usr/include/stdlib.h \
- /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
- /usr/include/sys/types.h /usr/include/bits/types/clock_t.h \
- /usr/include/bits/types/clockid_t.h /usr/include/bits/types/time_t.h \
- /usr/include/bits/types/timer_t.h /usr/include/sys/select.h \
- /usr/include/bits/select.h /usr/include/bits/types/sigset_t.h \
- /usr/include/bits/types/__sigset_t.h \
- /usr/include/bits/types/struct_timeval.h \
- /usr/include/bits/types/struct_timespec.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/thread-shared-types.h \
- /usr/include/bits/pthreadtypes-arch.h \
- /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \
- /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
- /usr/include/bits/types/once_flag.h /usr/include/bits/stdlib-float.h \
- /usr/include/termios.h /usr/include/bits/termios.h \
- /usr/include/bits/termios-struct.h /usr/include/bits/termios-c_cc.h \
- /usr/include/bits/termios-c_iflag.h /usr/include/bits/termios-c_oflag.h \
- /usr/include/bits/termios-c_cflag.h /usr/include/bits/termios-cbaud.h \
- /usr/include/bits/termios-c_lflag.h /usr/include/bits/termios-tcflow.h \
- /usr/include/bits/termios-misc.h /usr/include/bits/termios-baud.h \
- /usr/include/sys/ttydefaults.h \
+ /usr/include/bits/stdio_lim.h /usr/include/termios.h \
+ /usr/include/bits/termios.h /usr/include/bits/termios-struct.h \
+ /usr/include/bits/termios-c_cc.h /usr/include/bits/termios-c_iflag.h \
+ /usr/include/bits/termios-c_oflag.h /usr/include/bits/termios-c_cflag.h \
+ /usr/include/bits/termios-cbaud.h /usr/include/bits/termios-c_lflag.h \
+ /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \
+ /usr/include/bits/termios-baud.h /usr/include/sys/ttydefaults.h \
  /home/ringanaaro/Programacion/cumec/src/metronome.h

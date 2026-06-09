@@ -40,6 +40,10 @@ void* Metronome(void* arg);   // MetrState* state
 void* KeyboardCmds(void* arg);     // MetrState* state
                                    // These are passed as arguments to modify the metronome behaviour
 
-void ChangeSignature();            // Change beat and/or bpm
+void ChangeBeat(TimeSignature* metre, char new_beat_char);
+void IncreaseBPM(TimeSignature* metre);
+void DecreaseBPM(TimeSignature* metre);
+void Increase10BPM(TimeSignature* metre);
+void Decrease10BPM(TimeSignature* metre);
 
 #endif /* METRONOME_H */
