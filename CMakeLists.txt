@@ -27,6 +27,7 @@ target_include_directories(inclHead
 target_sources(inclHead
     PRIVATE
         src/metronome.c
+        src/display.c
 
     PUBLIC
       FILE_SET HEADERS
@@ -34,6 +35,7 @@ target_sources(inclHead
         src
       FILES
         src/metronome.h
+        src/display.h
 )
 
 find_package(SDL3 REQUIRED)

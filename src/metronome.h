@@ -1,5 +1,5 @@
 /* cumec - A lightweight metronome that can be fully customizable.
- * Copyright (C) 2021 Florent Ch.
+ * Copyright (C) 2026 Moisés CRN
  *
  * cumec is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

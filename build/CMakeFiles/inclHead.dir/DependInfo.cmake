@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/ringanaaro/Programacion/cumec/src/display.c" "CMakeFiles/inclHead.dir/src/display.c.o" "gcc" "CMakeFiles/inclHead.dir/src/display.c.o.d"
   "/home/ringanaaro/Programacion/cumec/src/metronome.c" "CMakeFiles/inclHead.dir/src/metronome.c.o" "gcc" "CMakeFiles/inclHead.dir/src/metronome.c.o.d"
   )
 

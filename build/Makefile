@@ -149,6 +149,30 @@ inclHead/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/build
 .PHONY : inclHead/fast
 
+src/display.o: src/display.c.o
+.PHONY : src/display.o
+
+# target to build an object file
+src/display.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/display.c.o
+.PHONY : src/display.c.o
+
+src/display.i: src/display.c.i
+.PHONY : src/display.i
+
+# target to preprocess a source file
+src/display.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/display.c.i
+.PHONY : src/display.c.i
+
+src/display.s: src/display.c.s
+.PHONY : src/display.s
+
+# target to generate assembly for a file
+src/display.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/display.c.s
+.PHONY : src/display.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -208,6 +232,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... cumec"
 	@echo "... inclHead"
+	@echo "... src/display.o"
+	@echo "... src/display.i"
+	@echo "... src/display.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

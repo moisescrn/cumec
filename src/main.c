@@ -1,5 +1,5 @@
 /* cumec - A lightweight metronome that can be fully customizable.
- * Copyright (C) 2021 Florent Ch.
+ * Copyright (C) 2026 Moisés CRN
  *
  * cumec is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,9 @@
 #include <pthread.h> // multitreading to run metronome and keyboard listener at the same time
 
 #include "metronome.h"
+#include "display.h"
 
-int main(void) {
+int main() {
     TimeSignature vals; 
     vals.beat = 5;
     vals.bpm = 140;
@@ -33,14 +34,16 @@ int main(void) {
     sttt.paused = &pause;
     sttt.quit = &Qu;
 
-    pthread_t threadMetr, threadKeyboard;
+    pthread_t threadMetr, threadKeyboard, threadDisplay;
 
     pthread_create(&threadMetr, NULL, Metronome, &sttt);
     pthread_create(&threadKeyboard, NULL, KeyboardCmds, &sttt);
+    pthread_create(&threadDisplay, NULL, ShowVariables, &sttt);
 
     // Let both threads run independently
     pthread_join(threadMetr, NULL);
     pthread_join(threadKeyboard, NULL);
+    pthread_join(threadDisplay, NULL);
     
     return 0;
 }

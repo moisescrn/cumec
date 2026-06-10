@@ -1,5 +1,5 @@
 /* cumec - A lightweight metronome that can be fully customizable.
- * Copyright (C) 2021 Florent Ch.
+ * Copyright (C) 2026 Moisés CRN
  *
  * cumec is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,13 +64,14 @@ void* Metronome(void* arg) {
 
     /* --------- Metronome loop --------- */
 playing:                                // label for goto statement
-    time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
-    time_pulses = time_pulses - 100000; // quit 100 miliseconds
     counter = 0;
 
     // Let's interpreat a beat of 0, as if it had no strong beats
     if (state->metre->beat == 0) {      // repeat weak beat
         while ( !(*(state->paused)) ) { // stops when we change the variable paused to true
+            time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
+            time_pulses = time_pulses - 100000; // quit 100 miliseconds
+
             usleep(time_pulses);
             SDL_PutAudioStreamData(stream,wavBuffer2, wavLength2); // load audio to stream
             SDL_ResumeAudioStreamDevice(stream);
@@ -79,6 +80,9 @@ playing:                                // label for goto statement
     }
 
     while ( !(*(state->paused)) ) { // stops when we change the paused or quit to true
+        time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
+        time_pulses = time_pulses - 100000; // quit 100 miliseconds
+
         usleep(time_pulses);
         if (state->metre->beat == 0) // we could set the beat to 0, while being inside the loop
             goto playing;
@@ -177,21 +181,13 @@ void* KeyboardCmds(void* arg) {
     int c;
     while (true) {
         c = getchar();
-        printf("Beat: %u\n", state->metre->beat);
-        printf("BPM: %u\n", state->metre->bpm);
-        printf("Paused: %d\n", *(state->paused));
-        printf("Quit: %d\n", *(state->quit));
-        fflush(stdout);
 
-        printf("INPUT COMMANDS: ");
-
-        printf("%c",c);
         if ( strchr("0123456789",c) ) {       // change beat
             ChangeBeat(state->metre,c);
         }
         else {
             switch (c) {
-                case 'q': printf("METRONOME QUITTED!\n");
+                case 'q': //printf("METRONOME QUITTED!\n");
                           *(state->quit) = true;            // quit metronome
                           *(state->paused) = true;                       // pause to exist the loop
                           return NULL; break;

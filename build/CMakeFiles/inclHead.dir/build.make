@@ -86,17 +86,33 @@ CMakeFiles/inclHead.dir/src/metronome.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/inclHead.dir/src/metronome.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ringanaaro/Programacion/cumec/src/metronome.c -o CMakeFiles/inclHead.dir/src/metronome.c.s
 
+CMakeFiles/inclHead.dir/src/display.c.o: CMakeFiles/inclHead.dir/flags.make
+CMakeFiles/inclHead.dir/src/display.c.o: /home/ringanaaro/Programacion/cumec/src/display.c
+CMakeFiles/inclHead.dir/src/display.c.o: CMakeFiles/inclHead.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ringanaaro/Programacion/cumec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/inclHead.dir/src/display.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/inclHead.dir/src/display.c.o -MF CMakeFiles/inclHead.dir/src/display.c.o.d -o CMakeFiles/inclHead.dir/src/display.c.o -c /home/ringanaaro/Programacion/cumec/src/display.c
+
+CMakeFiles/inclHead.dir/src/display.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/inclHead.dir/src/display.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ringanaaro/Programacion/cumec/src/display.c > CMakeFiles/inclHead.dir/src/display.c.i
+
+CMakeFiles/inclHead.dir/src/display.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/inclHead.dir/src/display.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ringanaaro/Programacion/cumec/src/display.c -o CMakeFiles/inclHead.dir/src/display.c.s
+
 # Object files for target inclHead
 inclHead_OBJECTS = \
-"CMakeFiles/inclHead.dir/src/metronome.c.o"
+"CMakeFiles/inclHead.dir/src/metronome.c.o" \
+"CMakeFiles/inclHead.dir/src/display.c.o"
 
 # External object files for target inclHead
 inclHead_EXTERNAL_OBJECTS =
 
 libinclHead.a: CMakeFiles/inclHead.dir/src/metronome.c.o
+libinclHead.a: CMakeFiles/inclHead.dir/src/display.c.o
 libinclHead.a: CMakeFiles/inclHead.dir/build.make
 libinclHead.a: CMakeFiles/inclHead.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ringanaaro/Programacion/cumec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libinclHead.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ringanaaro/Programacion/cumec/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libinclHead.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/inclHead.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/inclHead.dir/link.txt --verbose=$(VERBOSE)
 
