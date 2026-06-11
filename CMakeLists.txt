@@ -27,6 +27,7 @@ target_include_directories(inclHead
 target_sources(inclHead
     PRIVATE
         src/metronome.c
+        src/keyboard.c
         src/display.c
 
     PUBLIC
@@ -35,6 +36,7 @@ target_sources(inclHead
         src
       FILES
         src/metronome.h
+        src/keyboard.h
         src/display.h
 )
 

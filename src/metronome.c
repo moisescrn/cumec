@@ -15,14 +15,6 @@
  * along with cumec.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <SDL3/SDL_audio.h>
-#include <SDL3/SDL_init.h>
-#include <SDL3/SDL_timer.h>
-#include <unistd.h> // for usleep()
-#include <errno.h>
-#include <stdio.h>
-#include <termios.h>
-
 #include "metronome.h"
 
 void* Metronome(void* arg) {
@@ -55,7 +47,7 @@ void* Metronome(void* arg) {
     }
 
     // SDL3 works with streams
-    // direct the streamm into the default audio device
+    // direct the stream into the default audio device
     // we only need one stream, since strong and weak beats are never simultaneous
     SDL_AudioStream* stream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK,
                                                         &wavSpec1,
@@ -63,25 +55,25 @@ void* Metronome(void* arg) {
                                                         NULL);
 
     /* --------- Metronome loop --------- */
-playing:                                // label for goto statement
+playing:
     counter = 0;
 
     // Let's interpreat a beat of 0, as if it had no strong beats
-    if (state->metre->beat == 0) {      // repeat weak beat
+    if (state->metre->beat == 0) {
         while ( !(*(state->paused)) ) { // stops when we change the variable paused to true
             time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
-            time_pulses = time_pulses - 100000; // quit 100 miliseconds
+            time_pulses = time_pulses - 100000;
 
             usleep(time_pulses);
             SDL_PutAudioStreamData(stream,wavBuffer2, wavLength2); // load audio to stream
             SDL_ResumeAudioStreamDevice(stream);
-            SDL_Delay(110);
+            SDL_Delay(100);
         }
     }
 
     while ( !(*(state->paused)) ) { // stops when we change the paused or quit to true
         time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
-        time_pulses = time_pulses - 100000; // quit 100 miliseconds
+        time_pulses = time_pulses - 100000;
 
         usleep(time_pulses);
         if (state->metre->beat == 0) // we could set the beat to 0, while being inside the loop
@@ -93,7 +85,7 @@ playing:                                // label for goto statement
             SDL_PutAudioStreamData(stream, wavBuffer2, wavLength2);
         }
         SDL_ResumeAudioStreamDevice(stream);
-        SDL_Delay(110);                               // beat duration
+        SDL_Delay(100);
         counter++;
     }
     
@@ -116,91 +108,4 @@ quit:
         if ( (*(state->quit)) )        // quit while being in pause mode
             goto quit;
     }
-}
-
-/* **************** MODIFYING FUNCTIONS **************** */
-/* These functions modify the metre of the metronome
- * and will be invoked by keyboard commands
-*/
-
-void ChangeBeat(TimeSignature* metre, char new_beat_char) {
-    unsigned int new_beat = new_beat_char - '0';
-    metre->beat = new_beat;
-}
-
-void IncreaseBPM(TimeSignature* metre) {
-    (metre->bpm)++;
-}
-
-void DecreaseBPM(TimeSignature* metre) {
-    if ( (metre->bpm) == 1 )
-        return;
-    (metre->bpm)--;
-}
-
-void Increase10BPM(TimeSignature* metre) {
-    metre->bpm += 10;
-}
-
-void Decrease10BPM(TimeSignature* metre) {
-    if ( (metre->bpm) == 1 )
-        return;
-    if ( (metre->bpm) < 10 ) {
-        return;
-    }
-    metre->bpm -= 10;
-}
-
-/* **************** KEYWORD COMMANDS **************** */
-/* I want that pressing one key is enough to quit, to pause or to resume
- * the metronome, but by default, pressing enter is necessary.
- * To avoid it we need to disable line buffering on the terminal
- * with help of termios
- * set_raw_mode() disables line buffering
- * and restore_terminal() resets it to the normal usage
-*/
-
-void set_raw_mode() {
-    struct termios t;
-    tcgetattr(STDIN_FILENO, &t);    // get current settings
-    t.c_lflag &= ~(ICANON | ECHO);  // disable line buffering and acho
-    tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
-
-void restore_terminal() {
-    struct termios t;
-    tcgetattr(STDIN_FILENO, &t);
-    t.c_lflag |= (ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
-
-void* KeyboardCmds(void* arg) {
-    MetrState* state = (MetrState*) arg;
-
-    set_raw_mode();
-    int c;
-    while (true) {
-        c = getchar();
-
-        if ( strchr("0123456789",c) ) {       // change beat
-            ChangeBeat(state->metre,c);
-        }
-        else {
-            switch (c) {
-                case 'q': //printf("METRONOME QUITTED!\n");
-                          *(state->quit) = true;            // quit metronome
-                          *(state->paused) = true;                       // pause to exist the loop
-                          return NULL; break;
-                case 'p': *(state->paused) = !(*(state->paused)); break; // pause and resume
-                // Modifiying functions
-                case '+': IncreaseBPM(state->metre); break;
-                case '-': DecreaseBPM(state->metre); break;
-                case '.': Increase10BPM(state->metre); break;
-                case ',': Decrease10BPM(state->metre); break;
-                default: printf("uknown command\n"); break;
-            }
-        }
-    }
-    restore_terminal();
-    return NULL;
 }

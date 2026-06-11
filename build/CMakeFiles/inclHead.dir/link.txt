@@ -1,2 +1,2 @@
-/usr/bin/ar qc libinclHead.a CMakeFiles/inclHead.dir/src/metronome.c.o CMakeFiles/inclHead.dir/src/display.c.o
+/usr/bin/ar qc libinclHead.a CMakeFiles/inclHead.dir/src/metronome.c.o CMakeFiles/inclHead.dir/src/keyboard.c.o CMakeFiles/inclHead.dir/src/display.c.o
 /usr/bin/ranlib libinclHead.a

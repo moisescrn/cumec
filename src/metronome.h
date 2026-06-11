@@ -22,6 +22,8 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_timer.h>
 #include <unistd.h> // for usleep()
+#include <errno.h>
+#include <stdio.h>
 
 typedef struct {
     unsigned int beat;
@@ -34,16 +36,8 @@ typedef struct {
     bool* quit;
 } MetrState;
 
-// We want to allow multithreading, so this functions need this type and arguments
+// We want to allow multithreading, so this function needs this type and arguments
 // then the arguments will be set inside the function
 void* Metronome(void* arg);   // MetrState* state
-void* KeyboardCmds(void* arg);     // MetrState* state
-                                   // These are passed as arguments to modify the metronome behaviour
-
-void ChangeBeat(TimeSignature* metre, char new_beat_char);
-void IncreaseBPM(TimeSignature* metre);
-void DecreaseBPM(TimeSignature* metre);
-void Increase10BPM(TimeSignature* metre);
-void Decrease10BPM(TimeSignature* metre);
 
 #endif /* METRONOME_H */

@@ -173,6 +173,30 @@ src/display.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/display.c.s
 .PHONY : src/display.c.s
 
+src/keyboard.o: src/keyboard.c.o
+.PHONY : src/keyboard.o
+
+# target to build an object file
+src/keyboard.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/keyboard.c.o
+.PHONY : src/keyboard.c.o
+
+src/keyboard.i: src/keyboard.c.i
+.PHONY : src/keyboard.i
+
+# target to preprocess a source file
+src/keyboard.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/keyboard.c.i
+.PHONY : src/keyboard.c.i
+
+src/keyboard.s: src/keyboard.c.s
+.PHONY : src/keyboard.s
+
+# target to generate assembly for a file
+src/keyboard.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/inclHead.dir/build.make CMakeFiles/inclHead.dir/src/keyboard.c.s
+.PHONY : src/keyboard.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -235,6 +259,9 @@ help:
 	@echo "... src/display.o"
 	@echo "... src/display.i"
 	@echo "... src/display.s"
+	@echo "... src/keyboard.o"
+	@echo "... src/keyboard.i"
+	@echo "... src/keyboard.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

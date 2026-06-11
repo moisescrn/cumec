@@ -1,7 +1,9 @@
 CMakeFiles/inclHead.dir/src/metronome.c.o: \
  /home/ringanaaro/Programacion/cumec/src/metronome.c \
- /usr/include/stdc-predef.h /usr/include/SDL3/SDL_audio.h \
- /usr/include/SDL3/SDL_stdinc.h /usr/include/SDL3/SDL_platform_defines.h \
+ /usr/include/stdc-predef.h \
+ /home/ringanaaro/Programacion/cumec/src/metronome.h \
+ /usr/include/SDL3/SDL_audio.h /usr/include/SDL3/SDL_stdinc.h \
+ /usr/include/SDL3/SDL_platform_defines.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdarg.h \
  /usr/include/string.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -48,11 +50,4 @@ CMakeFiles/inclHead.dir/src/metronome.c.o: \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
  /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h /usr/include/termios.h \
- /usr/include/bits/termios.h /usr/include/bits/termios-struct.h \
- /usr/include/bits/termios-c_cc.h /usr/include/bits/termios-c_iflag.h \
- /usr/include/bits/termios-c_oflag.h /usr/include/bits/termios-c_cflag.h \
- /usr/include/bits/termios-cbaud.h /usr/include/bits/termios-c_lflag.h \
- /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \
- /usr/include/bits/termios-baud.h /usr/include/sys/ttydefaults.h \
- /home/ringanaaro/Programacion/cumec/src/metronome.h
+ /usr/include/bits/stdio_lim.h

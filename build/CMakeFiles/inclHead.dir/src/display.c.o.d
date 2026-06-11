@@ -61,4 +61,7 @@ CMakeFiles/inclHead.dir/src/display.c.o: \
  /usr/include/SDL3/SDL_keycode.h /usr/include/SDL3/SDL_scancode.h \
  /usr/include/SDL3/SDL_video.h /usr/include/SDL3/SDL_mouse.h \
  /usr/include/SDL3/SDL_pen.h /usr/include/SDL3/SDL_touch.h \
- /usr/include/SDL3/SDL_timer.h
+ /usr/include/SDL3/SDL_timer.h /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h

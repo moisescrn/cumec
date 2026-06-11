@@ -19,7 +19,9 @@
 #include <pthread.h> // multitreading to run metronome and keyboard listener at the same time
 
 #include "metronome.h"
+#include "keyboard.h"
 #include "display.h"
+
 
 int main() {
     TimeSignature vals; 
@@ -36,11 +38,10 @@ int main() {
 
     pthread_t threadMetr, threadKeyboard, threadDisplay;
 
-    pthread_create(&threadMetr, NULL, Metronome, &sttt);
-    pthread_create(&threadKeyboard, NULL, KeyboardCmds, &sttt);
-    pthread_create(&threadDisplay, NULL, ShowVariables, &sttt);
+    pthread_create(&threadMetr, NULL, Metronome, (void*) &sttt);
+    pthread_create(&threadKeyboard, NULL, KeyboardCmds, (void*) &sttt);
+    pthread_create(&threadDisplay, NULL, ShowVariables, (void* )&sttt);
 
-    // Let both threads run independently
     pthread_join(threadMetr, NULL);
     pthread_join(threadKeyboard, NULL);
     pthread_join(threadDisplay, NULL);

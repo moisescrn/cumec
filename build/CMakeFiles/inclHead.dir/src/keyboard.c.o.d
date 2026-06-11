@@ -1,6 +1,7 @@
-CMakeFiles/cumec.dir/src/main.c.o: \
- /home/ringanaaro/Programacion/cumec/src/main.c \
- /usr/include/stdc-predef.h /usr/include/stdio.h \
+CMakeFiles/inclHead.dir/src/keyboard.c.o: \
+ /home/ringanaaro/Programacion/cumec/src/keyboard.c \
+ /usr/include/stdc-predef.h \
+ /home/ringanaaro/Programacion/cumec/src/keyboard.h /usr/include/stdio.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/features-time64.h /usr/include/bits/wordsize.h \
  /usr/include/bits/timesize.h /usr/include/sys/cdefs.h \
@@ -15,27 +16,17 @@ CMakeFiles/cumec.dir/src/main.c.o: \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/floatn.h \
- /usr/include/bits/floatn-common.h /usr/include/pthread.h \
- /usr/include/sched.h /usr/include/bits/types/time_t.h \
- /usr/include/bits/types/struct_timespec.h /usr/include/bits/endian.h \
- /usr/include/bits/endianness.h /usr/include/bits/sched.h \
- /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
- /usr/include/time.h /usr/include/bits/time.h \
- /usr/include/bits/types/clock_t.h /usr/include/bits/types/struct_tm.h \
- /usr/include/bits/types/clockid_t.h /usr/include/bits/types/timer_t.h \
- /usr/include/bits/types/struct_itimerspec.h \
- /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/thread-shared-types.h \
- /usr/include/bits/pthreadtypes-arch.h \
- /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \
- /usr/include/bits/struct_rwlock.h /usr/include/bits/setjmp.h \
- /usr/include/bits/types/__sigset_t.h \
- /usr/include/bits/types/struct___jmp_buf_tag.h \
- /usr/include/bits/pthread_stack_min-dynamic.h \
- /usr/include/bits/pthread_stack_min.h \
+ /usr/include/bits/floatn-common.h /usr/include/termios.h \
+ /usr/include/bits/termios.h /usr/include/bits/termios-struct.h \
+ /usr/include/bits/termios-c_cc.h /usr/include/bits/termios-c_iflag.h \
+ /usr/include/bits/termios-c_oflag.h /usr/include/bits/termios-c_cflag.h \
+ /usr/include/bits/termios-cbaud.h /usr/include/bits/termios-c_lflag.h \
+ /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \
+ /usr/include/bits/termios-baud.h /usr/include/sys/ttydefaults.h \
  /home/ringanaaro/Programacion/cumec/src/metronome.h \
  /usr/include/SDL3/SDL_audio.h /usr/include/SDL3/SDL_stdinc.h \
  /usr/include/SDL3/SDL_platform_defines.h /usr/include/string.h \
+ /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/include/wchar.h /usr/include/bits/wchar.h \
  /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdint.h \
@@ -45,6 +36,7 @@ CMakeFiles/cumec.dir/src/main.c.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdbool.h \
  /usr/include/SDL3/SDL_begin_code.h /usr/include/SDL3/SDL_close_code.h \
  /usr/include/SDL3/SDL_endian.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/bits/endianness.h \
  /usr/include/bits/byteswap.h /usr/include/bits/uintn-identity.h \
  /usr/include/SDL3/SDL_error.h /usr/include/SDL3/SDL_mutex.h \
  /usr/include/SDL3/SDL_atomic.h /usr/include/SDL3/SDL_thread.h \
@@ -65,13 +57,4 @@ CMakeFiles/cumec.dir/src/main.c.o: \
  /usr/include/bits/unistd_ext.h /usr/include/errno.h \
  /usr/include/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h \
- /home/ringanaaro/Programacion/cumec/src/keyboard.h \
- /usr/include/termios.h /usr/include/bits/termios.h \
- /usr/include/bits/termios-struct.h /usr/include/bits/termios-c_cc.h \
- /usr/include/bits/termios-c_iflag.h /usr/include/bits/termios-c_oflag.h \
- /usr/include/bits/termios-c_cflag.h /usr/include/bits/termios-cbaud.h \
- /usr/include/bits/termios-c_lflag.h /usr/include/bits/termios-tcflow.h \
- /usr/include/bits/termios-misc.h /usr/include/bits/termios-baud.h \
- /usr/include/sys/ttydefaults.h \
- /home/ringanaaro/Programacion/cumec/src/display.h
+ /usr/include/asm-generic/errno-base.h

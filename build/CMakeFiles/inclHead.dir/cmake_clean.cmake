@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/inclHead.dir/src/display.c.o"
   "CMakeFiles/inclHead.dir/src/display.c.o.d"
+  "CMakeFiles/inclHead.dir/src/keyboard.c.o"
+  "CMakeFiles/inclHead.dir/src/keyboard.c.o.d"
   "CMakeFiles/inclHead.dir/src/metronome.c.o"
   "CMakeFiles/inclHead.dir/src/metronome.c.o.d"
   "libinclHead.a"
