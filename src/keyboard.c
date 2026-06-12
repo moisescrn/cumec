@@ -18,9 +18,13 @@
 #include "keyboard.h"
 
 /* **************** MODIFYING FUNCTIONS **************** */
-void ChangeBeat(TimeSignature* metre, char new_beat_char) {
-    unsigned int new_beat = new_beat_char - '0';
-    metre->beat = new_beat;
+void ChangeBeat(TimeSignature* metre, char new_length_char) {
+    unsigned int new_length = new_length_char - '0';
+    metre->length = new_length;
+    // set normal proportions       [[[ TO BE CHANGED!!!! ]]]
+    for (int i = 0; i < new_length; i++) {
+        (metre->proportions)[i] = 1;
+    }
 }
 
 void IncreaseBPM(TimeSignature* metre) {

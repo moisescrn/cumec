@@ -42,7 +42,12 @@ void* ShowVariables(void* arg) {
     printf("============ CUMEC ============\n");
     printf(CURSOR_SAVE);
     printf(CURSOR_RESTORE);
-    printf(CLEAR_LINE "Beat: %u\n", state->metre->beat);
+    printf(CLEAR_LINE "Beat: %u\n", state->metre->length);
+    printf(CLEAR_LINE "Structure: \n");
+    for (int i = 0; i < state->metre->length; i++) {
+        printf(CLEAR_LINE "%.2f\n", (state->metre->proportions)[i]);
+    }
+    printf("\n");
     printf(CLEAR_LINE "BPM: %u\n", state->metre->bpm);
     printf(CLEAR_LINE "Paused: %d\n", *(state->paused));
     printf(CLEAR_LINE "Quit: %d\n", *(state->quit));
@@ -54,7 +59,12 @@ void* ShowVariables(void* arg) {
              memcmp(state->quit, &previous_quit, sizeof(bool)) != 0 ) {
 
             printf(CURSOR_RESTORE);
-            printf(CLEAR_LINE "Beat: %u\n", state->metre->beat);
+            printf(CLEAR_LINE "Beat: %u\n", state->metre->length);
+            printf(CLEAR_LINE "Structure: \n");
+            for (int i = 0; i < state->metre->length; i++) {
+                printf(CLEAR_LINE "%.2f\n", (state->metre->proportions)[i]);
+            }
+            printf("\n");
             printf(CLEAR_LINE "BPM: %u\n", state->metre->bpm);
             printf(CLEAR_LINE "Paused: %d\n", *(state->paused));
             printf(CLEAR_LINE "Quit: %d\n", *(state->quit));

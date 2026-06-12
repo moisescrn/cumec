@@ -16,35 +16,60 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h> // multitreading to run metronome and keyboard listener at the same time
 
 #include "metronome.h"
 #include "keyboard.h"
 #include "display.h"
 
+void Start(MetrState* metSt) {
+    // Assure we have quited the zeros we do not need
+    // At the end of the strong array
+    QuitZeros(metSt->metre->strong, sizeof(metSt->metre->strong)/4, MAX_LENGTH);
 
-int main() {
-    TimeSignature vals; 
-    vals.beat = 5;
-    vals.bpm = 140;
-
-    bool pause = false;
-    bool Qu = false;
-
-    MetrState sttt;
-    sttt.metre = &vals;
-    sttt.paused = &pause;
-    sttt.quit = &Qu;
-
+    // Start the metronome toghether with keyboard and display
     pthread_t threadMetr, threadKeyboard, threadDisplay;
 
-    pthread_create(&threadMetr, NULL, Metronome, (void*) &sttt);
-    pthread_create(&threadKeyboard, NULL, KeyboardCmds, (void*) &sttt);
-    pthread_create(&threadDisplay, NULL, ShowVariables, (void* )&sttt);
+    pthread_create(&threadMetr, NULL, Metronome, (void*) metSt);
+    pthread_create(&threadKeyboard, NULL, KeyboardCmds, (void*) metSt);
+    pthread_create(&threadDisplay, NULL, ShowVariables, (void* ) metSt);
 
     pthread_join(threadMetr, NULL);
     pthread_join(threadKeyboard, NULL);
     pthread_join(threadDisplay, NULL);
+}
+
+int main() {
+    bool pause = false;
+    bool Qu = false;
+
+    TimeSignature seguiriyas = {
+        .length = 5,
+        .proportions = {1.0f, 1.0f, 1.5f, 1.5f, 1.0f},
+        .strong = {3,4},
+        .bpm = 90
+    };
     
+    MetrState Seg = {
+        .metre = &seguiriyas,
+        .paused = &pause,
+        .quit = &Qu
+    };
+
+    TimeSignature bulerias = {
+        .length = 12,
+        .proportions = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}, 
+        .strong = {3,6,8,10,0},
+        .bpm = 190
+    };
+
+    MetrState Bul = {
+        .metre = &bulerias,
+        .paused = &pause,
+        .quit = &Qu
+    };
+
+    Start(&Seg);
     return 0;
 }

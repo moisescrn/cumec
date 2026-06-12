@@ -17,6 +17,25 @@
 
 #include "metronome.h"
 
+void QuitZeros(unsigned int arr[], size_t stop_point, size_t size) {
+    // Function that quits all rubbish zeros, we do not want at the end of TimeSignature.strong
+    // This function shall be used, when defining the meters
+    for (int i = size; i > stop_point; i--){
+        if (arr[i] == 0)
+            arr[i] = 100;
+    }
+}
+
+// Check if a value is inside an array
+bool contains(unsigned int arr[], int size, int value) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void* Metronome(void* arg) {
     /* --------- Initialize metronome variables --------- */
     MetrState* state = (MetrState*) arg;
@@ -59,7 +78,7 @@ playing:
     counter = 0;
 
     // Let's interpreat a beat of 0, as if it had no strong beats
-    if (state->metre->beat == 0) {
+    if (state->metre->length == 0) {
         while ( !(*(state->paused)) ) { // stops when we change the variable paused to true
             time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
             time_pulses = time_pulses - 100000;
@@ -73,15 +92,15 @@ playing:
 
     while ( !(*(state->paused)) ) { // stops when we change the paused or quit to true
         time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
-        time_pulses = time_pulses - 100000;
+//        time_pulses = time_pulses - 100000;
 
-        usleep(time_pulses);
-        if (state->metre->beat == 0) // we could set the beat to 0, while being inside the loop
+        usleep(time_pulses * (state->metre->proportions)[(counter-1)%(state->metre->length)] - 100000);   // check the if duration should be longer
+        if (state->metre->length == 0) // we could set the beat to 0, while being inside the loop
             goto playing;
-        if (counter % (state->metre->beat) == 0) {    // strong beat
+        if ( contains(state->metre->strong, state->metre->length-1, (counter+1)%(state->metre->length)) ) {    // strong beat (check if it is inside the array of strong beats)
             SDL_PutAudioStreamData(stream, wavBuffer1, wavLength1);
         }
-        else {                                        // weak beat
+        else {                                          // weak beat
             SDL_PutAudioStreamData(stream, wavBuffer2, wavLength2);
         }
         SDL_ResumeAudioStreamDevice(stream);
