@@ -26,7 +26,7 @@
 void Start(MetrState* metSt) {
     // Assure we have quited the zeros we do not need
     // At the end of the strong array
-    QuitZeros(metSt->metre->strong, sizeof(metSt->metre->strong)/4, MAX_LENGTH);
+    QuitZeros(metSt->metre->strong, metSt->metre->length, MAX_LENGTH);
 
     // Start the metronome toghether with keyboard and display
     pthread_t threadMetr, threadKeyboard, threadDisplay;
@@ -66,6 +66,19 @@ int main() {
 
     MetrState Bul = {
         .metre = &bulerias,
+        .paused = &pause,
+        .quit = &Qu
+    };
+
+    TimeSignature sevillanas = {
+        .length = 3,
+        .proportions = {1.0f, 1.0f, 1.0f},
+        .strong = {1},
+        .bpm = 150
+    };
+
+    MetrState Sev = {
+        .metre = &sevillanas,
         .paused = &pause,
         .quit = &Qu
     };

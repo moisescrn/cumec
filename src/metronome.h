@@ -25,7 +25,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-#define MAX_LENGTH 20 // maximum length of the meter
+#define MAX_LENGTH 15 // maximum length of the meter
 
 // With this struct we can make any kind of beat we can imagine,
 // even irregular ones, and we can modify that irregularity

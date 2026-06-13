@@ -20,9 +20,9 @@
 void QuitZeros(unsigned int arr[], size_t stop_point, size_t size) {
     // Function that quits all rubbish zeros, we do not want at the end of TimeSignature.strong
     // This function shall be used, when defining the meters
-    for (int i = size; i > stop_point; i--){
-        if (arr[i] == 0)
-            arr[i] = 100;
+    for (int i = size-1; i >= stop_point; i--){
+        if (*(arr+i) == 0)
+            *(arr+i) = 100;
     }
 }
 
@@ -97,7 +97,7 @@ playing:
         usleep(time_pulses * (state->metre->proportions)[(counter-1)%(state->metre->length)] - 100000);   // check the if duration should be longer
         if (state->metre->length == 0) // we could set the beat to 0, while being inside the loop
             goto playing;
-        if ( contains(state->metre->strong, state->metre->length-1, (counter+1)%(state->metre->length)) ) {    // strong beat (check if it is inside the array of strong beats)
+        if ( contains(state->metre->strong, state->metre->length-1, counter%(state->metre->length)+1) ) {    // strong beat (check if it is inside the array of strong beats)
             SDL_PutAudioStreamData(stream, wavBuffer1, wavLength1);
         }
         else {                                          // weak beat
