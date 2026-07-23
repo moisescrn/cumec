@@ -94,7 +94,7 @@ playing:
         time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
 //        time_pulses = time_pulses - 100000;
 
-        usleep(time_pulses * (state->metre->proportions)[(counter-1)%(state->metre->length)] - 100000);   // check the if duration should be longer
+        usleep((time_pulses - 100000) * (state->metre->proportions)[(counter-1)%(state->metre->length)]);   // check the if duration should be longer
         if (state->metre->length == 0) // we could set the beat to 0, while being inside the loop
             goto playing;
         if ( contains(state->metre->strong, state->metre->length-1, counter%(state->metre->length)+1) ) {    // strong beat (check if it is inside the array of strong beats)

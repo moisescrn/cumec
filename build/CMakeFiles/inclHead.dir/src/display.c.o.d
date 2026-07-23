@@ -6,8 +6,8 @@ CMakeFiles/inclHead.dir/src/display.c.o: \
  /usr/include/bits/timesize.h /usr/include/sys/cdefs.h \
  /usr/include/bits/long-double.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stddef.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdarg.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stddef.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdarg.h \
  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
  /usr/include/bits/time64.h /usr/include/bits/types/__fpos_t.h \
  /usr/include/bits/types/__mbstate_t.h \
@@ -43,10 +43,10 @@ CMakeFiles/inclHead.dir/src/display.c.o: \
  /usr/include/SDL3/SDL_platform_defines.h /usr/include/wchar.h \
  /usr/include/bits/wchar.h /usr/include/bits/types/wint_t.h \
  /usr/include/bits/types/mbstate_t.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdint.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
  /usr/include/bits/stdint-least.h /usr/include/inttypes.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdbool.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdbool.h \
  /usr/include/SDL3/SDL_begin_code.h /usr/include/SDL3/SDL_close_code.h \
  /usr/include/SDL3/SDL_endian.h /usr/include/SDL3/SDL_error.h \
  /usr/include/SDL3/SDL_mutex.h /usr/include/SDL3/SDL_atomic.h \
@@ -64,4 +64,5 @@ CMakeFiles/inclHead.dir/src/display.c.o: \
  /usr/include/SDL3/SDL_timer.h /usr/include/errno.h \
  /usr/include/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h
+ /usr/include/asm-generic/errno-base.h /usr/include/curses.h \
+ /usr/include/ncurses_dll.h /usr/include/unctrl.h /usr/include/curses.h

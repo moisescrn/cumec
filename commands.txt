@@ -1,0 +1,12 @@
+q: quit
+p: pause/resume
+
++: increase bpm
+-: decrease bpm
+
+.: increase bpm by 10
+,: decrease bpm by 10
+
+number: change beat to that number
+
+

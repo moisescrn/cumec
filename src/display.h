@@ -19,7 +19,13 @@
 #define DISPLAY_H
 
 #include "metronome.h"
+#include <ncurses.h>
 
 void* ShowVariables(void* arg); // MetrState* state
+
+void draw_window();
+void draw_commands_window();
+void draw_center_window();
+void total();
 
 #endif /* DISPLAY_H */

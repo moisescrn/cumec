@@ -83,6 +83,6 @@ int main() {
         .quit = &Qu
     };
 
-    Start(&Seg);
+    Start(&Bul);
     return 0;
 }
