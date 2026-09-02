@@ -46,6 +46,7 @@ target_link_libraries (cumec
     PRIVATE
       SDL3::SDL3
       inclHead
+      ncurses
 )
 
 

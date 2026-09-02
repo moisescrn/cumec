@@ -22,6 +22,7 @@
 #include <ncurses.h>
 
 void* ShowVariables(void* arg); // MetrState* state
+void* ShowPanel(void* arg); // MetrState* state
 
 void draw_window();
 void draw_commands_window();

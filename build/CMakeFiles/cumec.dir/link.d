@@ -3,8 +3,12 @@
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
   CMakeFiles/cumec.dir/src/main.c.o \
-  /usr/lib/libSDL3.so.0.4.10 \
+  /usr/lib/libSDL3.so.0.4.14 \
   libinclHead.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncurses.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncurses.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncurses.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncursesw.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc_s_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc_s_asneeded.so \
@@ -17,7 +21,7 @@
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
@@ -46,9 +50,17 @@
 
 CMakeFiles/cumec.dir/src/main.c.o:
 
-/usr/lib/libSDL3.so.0.4.10:
+/usr/lib/libSDL3.so.0.4.14:
 
 libinclHead.a:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncurses.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncurses.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncurses.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libncursesw.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a:
 
@@ -74,7 +86,7 @@ libinclHead.a:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so:
 

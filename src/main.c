@@ -33,7 +33,8 @@ void Start(MetrState* metSt) {
 
     pthread_create(&threadMetr, NULL, Metronome, (void*) metSt);
     pthread_create(&threadKeyboard, NULL, KeyboardCmds, (void*) metSt);
-    pthread_create(&threadDisplay, NULL, ShowVariables, (void* ) metSt);
+    pthread_create(&threadDisplay, NULL, ShowPanel, (void* ) metSt);
+ //   pthread_create(&threadDisplay, NULL, ShowVariables, (void* ) metSt);
 
     pthread_join(threadMetr, NULL);
     pthread_join(threadKeyboard, NULL);
@@ -41,6 +42,7 @@ void Start(MetrState* metSt) {
 }
 
 int main() {
+//    ShowPanel();
     bool pause = false;
     bool Qu = false;
 
@@ -83,6 +85,7 @@ int main() {
         .quit = &Qu
     };
 
-    Start(&Bul);
+//    Start(&Bul);
+    Start(&Sev);
     return 0;
 }

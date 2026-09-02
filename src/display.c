@@ -79,3 +79,37 @@ void* ShowVariables(void* arg) {
     printf(CURSOR_SHOW);
     //printf("\n");
 }
+
+void* ShowPanel(void* arg) {
+    MetrState* state = (MetrState*) arg;
+    int max_y, max_x;
+
+    initscr();    // creates stdscr (standard screen) 
+    cbreak();
+    noecho();
+    curs_set(0);
+    getmaxyx(stdscr, max_y, max_x);
+
+    // Heights for the shown variables
+    int metre_height = max_y / 4;
+    int beats_height = max_y / 2;
+    int bpm_height = 3 * max_y / 4;
+
+    attron(COLOR_PAIR(1));
+    box(stdscr, 0, 0);
+    attroff(COLOR_PAIR(1));
+
+
+    attron(A_BOLD);
+    mvprintw(0, max_x / 2, " cumec ");
+    mvprintw(metre_height, max_x / 2, "%u", state->metre->length);
+    mvprintw(beats_height, max_x / 2, "Circles");
+    mvprintw(bpm_height, max_x / 2, "%u", state->metre->bpm);
+    attroff(A_BOLD);
+
+    wattron(stdscr, COLOR_PAIR(2));
+    box(stdscr, 0, 0);
+    wattroff(stdscr, COLOR_PAIR(2));
+
+    wrefresh(stdscr);
+}
