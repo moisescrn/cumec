@@ -29,6 +29,53 @@
 #define CURSOR_HIDE "\033[?25l"
 #define CURSOR_SHOW "\033[?25h"
 
+// ncurses colors indeces
+#define TEXT_PAIR 1 
+#define BOX_PAIR 2
+#define BAR_PAIR 3
+//#define 
+
+void draw_bar(WINDOW* win, int cy, int cx, int width, int color, bool filled) {
+    /* win        window
+     * cy, cx     center point
+     * width     width of the bar (height = 3 * width), it has to be an even number
+     * color      color pair
+     * filled     either yes or not
+     */
+
+    int height = 3 * width;
+    // Characters are roughly twice as tall as they are wide.
+    //const double aspect = 2.0;
+
+    wattron(win, COLOR_PAIR(color));
+
+    if (filled) {
+        for (int y = cy - height/2; y <= cy + height/2; y++) {
+           for (int x = cx - width/2; x <= cx + width/2; x++) {
+
+               mvwaddch(win, y, x, 'Q');
+           }
+        }
+    }
+
+    // unfilled 
+    else {
+        // top and bottom
+        for (int x = cx - width/2; x <= cx + width/2; x++) {
+            mvwaddch(win, cy - height/2, x, '-');
+            mvwaddch(win, cy + height/2, x, '-');
+        }
+
+        // left and right
+        for (int y = cy - height/2; y <= cy + height/2; y++) {
+            mvwaddch(win, y, cx - width/2, '|');
+            mvwaddch(win, y, cx + width/2, '|');
+        }
+    }
+
+    wattroff(win, COLOR_PAIR(color));
+}
+
 void* ShowVariables(void* arg) {
     MetrState* state = (MetrState*) arg;
     /* --- Comparing variables ---*/
@@ -90,26 +137,33 @@ void* ShowPanel(void* arg) {
     curs_set(0);
     getmaxyx(stdscr, max_y, max_x);
 
+    // Colors
+    start_color();
+
+    init_pair(TEXT_PAIR, COLOR_CYAN, COLOR_BLACK);
+    init_pair(BOX_PAIR, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(BAR_PAIR, COLOR_RED, COLOR_BLACK);
+    //init_pair(4, COLOR_BLUE, COLOR_BLACK);
+
     // Heights for the shown variables
     int metre_height = max_y / 4;
     int beats_height = max_y / 2;
     int bpm_height = 3 * max_y / 4;
 
-    attron(COLOR_PAIR(1));
+    attron(COLOR_PAIR(BOX_PAIR));
     box(stdscr, 0, 0);
-    attroff(COLOR_PAIR(1));
+    attroff(COLOR_PAIR(BOX_PAIR));
 
 
-    attron(A_BOLD);
+    attron(COLOR_PAIR(TEXT_PAIR));
     mvprintw(0, max_x / 2, " cumec ");
     mvprintw(metre_height, max_x / 2, "%u", state->metre->length);
-    mvprintw(beats_height, max_x / 2, "Circles");
+    //mvprintw(beats_height, max_x / 2, "Circles");
+    draw_bar(stdscr, beats_height, max_x/2, 2, BAR_PAIR, true); 
     mvprintw(bpm_height, max_x / 2, "%u", state->metre->bpm);
-    attroff(A_BOLD);
+    attroff(COLOR_PAIR(TEXT_PAIR));
 
-    wattron(stdscr, COLOR_PAIR(2));
-    box(stdscr, 0, 0);
-    wattroff(stdscr, COLOR_PAIR(2));
 
-    wrefresh(stdscr);
+
+    refresh();
 }
