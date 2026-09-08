@@ -33,47 +33,45 @@
 #define TEXT_PAIR 1 
 #define BOX_PAIR 2
 #define BAR_PAIR 3
-//#define 
 
-void draw_bar(WINDOW* win, int cy, int cx, int width, int color, bool filled) {
-    /* win        window
-     * cy, cx     center point
+void draw_bar(int cy, int cx, int width, int color, bool filled) {
+    /* cy, cx     center point
      * width     width of the bar (height = 3 * width), it has to be an even number
      * color      color pair
      * filled     either yes or not
      */
 
     int height = 3 * width;
-    // Characters are roughly twice as tall as they are wide.
-    //const double aspect = 2.0;
+    int start_y = cy - height/2;
+    int start_x = cx - width/2;
 
-    wattron(win, COLOR_PAIR(color));
+    wattron(stdscr, COLOR_PAIR(color));
 
     if (filled) {
-        for (int y = cy - height/2; y <= cy + height/2; y++) {
-           for (int x = cx - width/2; x <= cx + width/2; x++) {
-
-               mvwaddch(win, y, x, 'Q');
-           }
+        for (int i = start_y; i <= start_y + height; i ++) {
+            mvhline(i, start_x, 0, width);
         }
     }
 
-    // unfilled 
-    else {
-        // top and bottom
-        for (int x = cx - width/2; x <= cx + width/2; x++) {
-            mvwaddch(win, cy - height/2, x, '-');
-            mvwaddch(win, cy + height/2, x, '-');
-        }
+    mvhline(start_y, start_x, 0, width);
+    mvhline(start_y + height, start_x, 0, width);
+    mvvline(start_y, start_x, 0, height);
+    mvvline(start_y, start_x + width, 0, height);
+    mvaddch(start_y, start_x, ACS_ULCORNER);
+    mvaddch(start_y + height, start_x, ACS_LLCORNER);
+    mvaddch(start_y, start_x + width, ACS_URCORNER);
+    mvaddch(start_y + height, start_x + width, ACS_LRCORNER);
+    
+    wattroff(stdscr, COLOR_PAIR(color));
 
-        // left and right
-        for (int y = cy - height/2; y <= cy + height/2; y++) {
-            mvwaddch(win, y, cx - width/2, '|');
-            mvwaddch(win, y, cx + width/2, '|');
-        }
-    }
-
-    wattroff(win, COLOR_PAIR(color));
+    /*
+     * I do not know why but this did not work properly
+    WINDOW *bar_win = newwin(height, width, start_y, start_x);
+    wattron(bar_win, COLOR_PAIR(color));
+    box(bar_win, 0, 0);
+    wattroff(bar_win, COLOR_PAIR(color));
+    wrefresh(bar_win);
+    */
 }
 
 void* ShowVariables(void* arg) {
@@ -131,22 +129,22 @@ void* ShowPanel(void* arg) {
     MetrState* state = (MetrState*) arg;
     int max_y, max_x;
 
-    initscr();    // creates stdscr (standard screen) 
+    initscr();    // creates stdscr (standard screen) k
+    //refresh();
     cbreak();
     noecho();
     curs_set(0);
+    keypad(stdscr, TRUE);
     getmaxyx(stdscr, max_y, max_x);
 
     // Colors
     start_color();
-
     init_pair(TEXT_PAIR, COLOR_CYAN, COLOR_BLACK);
     init_pair(BOX_PAIR, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(BAR_PAIR, COLOR_RED, COLOR_BLACK);
-    //init_pair(4, COLOR_BLUE, COLOR_BLACK);
 
     // Heights for the shown variables
-    int metre_height = max_y / 4;
+    int metre_height = max_y / 4 - 1;
     int beats_height = max_y / 2;
     int bpm_height = 3 * max_y / 4;
 
@@ -154,16 +152,14 @@ void* ShowPanel(void* arg) {
     box(stdscr, 0, 0);
     attroff(COLOR_PAIR(BOX_PAIR));
 
+    draw_bar(beats_height, max_x/2 - 10, 4, BAR_PAIR, true); 
+    draw_bar(beats_height, max_x/2, 2, BAR_PAIR, false); 
 
     attron(COLOR_PAIR(TEXT_PAIR));
-    mvprintw(0, max_x / 2, " cumec ");
-    mvprintw(metre_height, max_x / 2, "%u", state->metre->length);
-    //mvprintw(beats_height, max_x / 2, "Circles");
-    draw_bar(stdscr, beats_height, max_x/2, 2, BAR_PAIR, true); 
-    mvprintw(bpm_height, max_x / 2, "%u", state->metre->bpm);
-    attroff(COLOR_PAIR(TEXT_PAIR));
-
-
+    mvprintw(0, max_x/2 - 3, " cumec ");
+    mvprintw(metre_height, max_x/2, "%u", state->metre->length);
+    mvprintw(bpm_height, max_x/2 - 3, "%u bpm", state->metre->bpm);
+    //getch();
 
     refresh();
 }
