@@ -74,6 +74,19 @@ void draw_bar(int cy, int cx, int width, int color, bool filled) {
     */
 }
 
+
+void get_bars_conf(MetrState* state, BarStructure* bars) {
+    int len = state->metre->length;
+    
+    if (len % 2 == 0) {
+      
+    }
+    else {
+
+    }
+
+}
+
 void* ShowVariables(void* arg) {
     MetrState* state = (MetrState*) arg;
     /* --- Comparing variables ---*/
@@ -148,13 +161,26 @@ void* ShowPanel(void* arg) {
     int beats_height = max_y / 2;
     int bpm_height = 3 * max_y / 4;
 
+    // BASE SCREEN
     attron(COLOR_PAIR(BOX_PAIR));
     box(stdscr, 0, 0);
     attroff(COLOR_PAIR(BOX_PAIR));
 
-    draw_bar(beats_height, max_x/2 - 10, 4, BAR_PAIR, true); 
-    draw_bar(beats_height, max_x/2, 2, BAR_PAIR, false); 
+    // BARS
+    //BarStructure bars_conf; // configuration of bars (position, size, filling)
+    //get_bars_conf();
 
+    BarStructure bars_conf = {
+        .x_positions = {max_x/2 - 10, max_x/2, max_x/2 + 10},
+        .width = {4,2,4},
+        .filling = {true, true, false}
+    };
+
+    for (int i = 1; i <= state->metre->length; i++) {
+        draw_bar(beats_height, bars_conf.x_positions[i-1], bars_conf.width[i-1], BAR_PAIR, bars_conf.filling[i-1]);
+    }
+
+    // REST: title, text
     attron(COLOR_PAIR(TEXT_PAIR));
     mvprintw(0, max_x/2 - 3, " cumec ");
     mvprintw(metre_height, max_x/2, "%u", state->metre->length);

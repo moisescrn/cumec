@@ -21,10 +21,21 @@
 #include "metronome.h"
 #include <ncurses.h>
 
+// With this struct we define what is needed to draw all bars
+// It contains for each bar its position in x direction (in y direction it is always the same),
+// the width (representing the length of the beat)
+// and the filling (representing if that beat is strong)
+typedef struct {
+    unsigned int x_positions[MAX_LENGTH];
+    unsigned int width[MAX_LENGTH];
+    bool filling[MAX_LENGTH];
+} BarStructure;
+
 void* ShowVariables(void* arg); // MetrState* state
 void* ShowPanel(void* arg); // MetrState* state
 
 void draw_bar(int cy, int cx, int width, int color, bool filled);
+void get_bars_conf(MetrState* state, BarStructure* bars);
 
 void draw_window();
 void draw_commands_window();
