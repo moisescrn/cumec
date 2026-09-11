@@ -35,7 +35,7 @@ void* ShowVariables(void* arg); // MetrState* state
 void* ShowPanel(void* arg); // MetrState* state
 
 void draw_bar(int cy, int cx, int width, int color, bool filled);
-void get_bars_conf(MetrState* state, BarStructure* bars);
+void get_bars_conf(int max_x, MetrState* state, BarStructure* bars);
 
 void draw_window();
 void draw_commands_window();

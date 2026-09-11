@@ -51,6 +51,8 @@ typedef struct {
 void QuitZeros(unsigned int arr[], size_t stop_point, size_t size);
 // Function that quits all rubbish zeros, we do not want at the end of TimeSignature.strong
 
+bool contains(unsigned int arr[], int size, int value);
+
 // We want to allow multithreading, so this function needs this type and arguments
 void* Metronome(void* arg);   // MetrState* state
 

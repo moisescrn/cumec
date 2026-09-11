@@ -75,16 +75,27 @@ void draw_bar(int cy, int cx, int width, int color, bool filled) {
 }
 
 
-void get_bars_conf(MetrState* state, BarStructure* bars) {
+void get_bars_conf(int max_x, MetrState* state, BarStructure* bars) {
     int len = state->metre->length;
-    
-    if (len % 2 == 0) {
-      
-    }
-    else {
+    int distance = 8; // distance between bars 
 
+    // x_positions
+    int first_bar_x = (max_x - (len-1)*distance ) / 2; // Position of the left most bar
+    for (int i = 0; i < len; i++) {
+        bars->x_positions[i] = first_bar_x + i * distance;
     }
 
+    // width
+    // standard width is 2, if the length is longer we multiply by that
+    for (int i = 0; i < len; i++) {
+        bars->width[i] = state->metre->proportions[i] * 2;
+    }
+
+    // filling
+    // if the beat is strong it is filled
+    for (int i = 0; i < len; i++) {
+        bars->filling[i] = contains(state->metre->strong, len-1, i+1); // use contains() from metronome.c
+    }
 }
 
 void* ShowVariables(void* arg) {
@@ -167,14 +178,8 @@ void* ShowPanel(void* arg) {
     attroff(COLOR_PAIR(BOX_PAIR));
 
     // BARS
-    //BarStructure bars_conf; // configuration of bars (position, size, filling)
-    //get_bars_conf();
-
-    BarStructure bars_conf = {
-        .x_positions = {max_x/2 - 10, max_x/2, max_x/2 + 10},
-        .width = {4,2,4},
-        .filling = {true, true, false}
-    };
+    BarStructure bars_conf; // configuration of bars (position, size, filling)
+    get_bars_conf(max_x, state, &bars_conf);
 
     for (int i = 1; i <= state->metre->length; i++) {
         draw_bar(beats_height, bars_conf.x_positions[i-1], bars_conf.width[i-1], BAR_PAIR, bars_conf.filling[i-1]);
