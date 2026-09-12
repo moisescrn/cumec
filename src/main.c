@@ -22,6 +22,7 @@
 #include "metronome.h"
 #include "keyboard.h"
 #include "display.h"
+#include "metres.h"
 
 void Start(MetrState* metSt) {
     // Assure we have quited the zeros we do not need
@@ -41,51 +42,24 @@ void Start(MetrState* metSt) {
     pthread_join(threadDisplay, NULL);
 }
 
+void DefMetrState(bool* pause, bool* Qu, TimeSignature* timeSign, MetrState* MS) {
+    // Define the MetrState
+    MS->metre = timeSign;
+    MS->paused = pause;
+    MS->quit = Qu;
+}
+
 int main() {
-//    ShowPanel();
+    // Basic variables
     bool pause = false;
     bool Qu = false;
+    MetrState metSt;
 
-    TimeSignature seguiriyas = {
-        .length = 5,
-        .proportions = {1.0f, 1.0f, 1.5f, 1.5f, 1.0f},
-        .strong = {3,4},
-        .bpm = 90
-    };
-    
-    MetrState Seg = {
-        .metre = &seguiriyas,
-        .paused = &pause,
-        .quit = &Qu
-    };
+    // Define state
+    DefMetrState(&pause, &Qu, &sevillanas, &metSt);
 
-    TimeSignature bulerias = {
-        .length = 12,
-        .proportions = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}, 
-        .strong = {3,6,8,10,0},
-        .bpm = 190
-    };
+    // Run the metronome
+    Start(&metSt);
 
-    MetrState Bul = {
-        .metre = &bulerias,
-        .paused = &pause,
-        .quit = &Qu
-    };
-
-    TimeSignature sevillanas = {
-        .length = 3,
-        .proportions = {1.0f, 1.0f, 1.0f},
-        .strong = {1},
-        .bpm = 150
-    };
-
-    MetrState Sev = {
-        .metre = &sevillanas,
-        .paused = &pause,
-        .quit = &Qu
-    };
-
-//    Start(&Bul);
-    Start(&Sev);
     return 0;
 }
