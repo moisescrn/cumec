@@ -32,8 +32,9 @@ typedef struct {
 } BarStructure;
 
 void* ShowVariables(void* arg); // MetrState* state
-void* ShowPanel(void* arg); 
-void* PanelLoop(void* arg); // MetrState* state
+//void* ShowPanel(void* arg); 
+void ShowPanel(MetrState* metSt); 
+void* RedrawWindow(void* arg); // MetrState* state
 
 void draw_bar(int cy, int cx, int width, int color, bool filled);
 void get_bars_conf(int max_x, TimeSignature* metre, BarStructure* bars);

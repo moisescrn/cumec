@@ -149,16 +149,16 @@ void* ShowVariables(void* arg) {
     //printf("\n");
 }
 
-void* ShowPanel(void* arg) {
-    MetrState* state = (MetrState*) arg;
+void ShowPanel(MetrState* state) {
+    //MetrState* state = (MetrState*) arg;
     int max_y, max_x;
 
-/*    initscr();    // creates stdscr (standard screen)
+    initscr();    // creates stdscr (standard screen)
     cbreak();
     noecho();
     curs_set(0);
     keypad(stdscr, TRUE);
-*/    getmaxyx(stdscr, max_y, max_x);
+    getmaxyx(stdscr, max_y, max_x);
 
     // Colors
     start_color();
@@ -193,17 +193,16 @@ void* ShowPanel(void* arg) {
     refresh();
 }
 
-void* PanelLoop(void* arg) {
+void* RedrawWindow(void* arg) {
+    // This function reads input and refreshes the window after each change
     MetrState* state = (MetrState*) arg;
-    initscr();    // creates stdscr (standard screen)
-    cbreak();
-    noecho();
-    curs_set(0);
-    keypad(stdscr, TRUE);
 
-    char ch;
-    while ( (ch = getch()) != '\n' ) {
+    int ch;
+    ch = getch();
+    while ( ch != 'q' ) {
         ShowPanel( (void*) state );  
-        //refresh();
+        ch = getch();
+        refresh();
     }
+    endwin();
 }

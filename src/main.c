@@ -34,7 +34,7 @@ void Start(MetrState* metSt) {
 
     pthread_create(&threadMetr, NULL, Metronome, (void*) metSt);
     pthread_create(&threadKeyboard, NULL, KeyboardCmds, (void*) metSt);
-    pthread_create(&threadDisplay, NULL, PanelLoop, (void* ) metSt);
+    pthread_create(&threadDisplay, NULL, RedrawWindow, (void* ) metSt);
 //    pthread_create(&threadDisplay, NULL, ShowPanel, (void* ) metSt);
  //   pthread_create(&threadDisplay, NULL, ShowVariables, (void* ) metSt);
 
@@ -60,8 +60,8 @@ int main() {
     DefMetrState(&pause, &Qu, &sevillanas, &metSt);
 
     // Run the metronome
-//    Start(&metSt);
+    Start(&metSt);
  //   ShowPanel(&metSt);
-    StartPanel(metSt);
+//    RedrawWindow(&metSt);
     return 0;
 }
