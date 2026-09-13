@@ -75,8 +75,8 @@ void draw_bar(int cy, int cx, int width, int color, bool filled) {
 }
 
 
-void get_bars_conf(int max_x, MetrState* state, BarStructure* bars) {
-    int len = state->metre->length;
+void get_bars_conf(int max_x, TimeSignature* metre, BarStructure* bars) {
+    int len = metre->length;
     int distance = 8; // distance between bars 
 
     // x_positions
@@ -88,13 +88,13 @@ void get_bars_conf(int max_x, MetrState* state, BarStructure* bars) {
     // width
     // standard width is 2, if the length is longer we multiply by that
     for (int i = 0; i < len; i++) {
-        bars->width[i] = state->metre->proportions[i] * 2;
+        bars->width[i] = metre->proportions[i] * 2;
     }
 
     // filling
     // if the beat is strong it is filled
     for (int i = 0; i < len; i++) {
-        bars->filling[i] = contains(state->metre->strong, len-1, i+1); // use contains() from metronome.c
+        bars->filling[i] = contains(metre->strong, len-1, i+1); // use contains() from metronome.c
     }
 }
 
@@ -153,13 +153,12 @@ void* ShowPanel(void* arg) {
     MetrState* state = (MetrState*) arg;
     int max_y, max_x;
 
-    initscr();    // creates stdscr (standard screen) k
-    //refresh();
+/*    initscr();    // creates stdscr (standard screen)
     cbreak();
     noecho();
     curs_set(0);
     keypad(stdscr, TRUE);
-    getmaxyx(stdscr, max_y, max_x);
+*/    getmaxyx(stdscr, max_y, max_x);
 
     // Colors
     start_color();
@@ -179,7 +178,7 @@ void* ShowPanel(void* arg) {
 
     // BARS
     BarStructure bars_conf; // configuration of bars (position, size, filling)
-    get_bars_conf(max_x, state, &bars_conf);
+    get_bars_conf(max_x, state->metre, &bars_conf);
 
     for (int i = 1; i <= state->metre->length; i++) {
         draw_bar(beats_height, bars_conf.x_positions[i-1], bars_conf.width[i-1], BAR_PAIR, bars_conf.filling[i-1]);
@@ -190,7 +189,21 @@ void* ShowPanel(void* arg) {
     mvprintw(0, max_x/2 - 3, " cumec ");
     mvprintw(metre_height, max_x/2, "%u", state->metre->length);
     mvprintw(bpm_height, max_x/2 - 3, "%u bpm", state->metre->bpm);
-    //getch();
 
     refresh();
+}
+
+void* PanelLoop(void* arg) {
+    MetrState* state = (MetrState*) arg;
+    initscr();    // creates stdscr (standard screen)
+    cbreak();
+    noecho();
+    curs_set(0);
+    keypad(stdscr, TRUE);
+
+    char ch;
+    while ( (ch = getch()) != '\n' ) {
+        ShowPanel( (void*) state );  
+        //refresh();
+    }
 }
