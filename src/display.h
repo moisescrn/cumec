@@ -19,6 +19,7 @@
 #define DISPLAY_H
 
 #include "metronome.h"
+#include "keyboard.h"
 #include <ncurses.h>
 
 // With this struct we define what is needed to draw all bars
@@ -31,8 +32,6 @@ typedef struct {
     bool filling[MAX_LENGTH];
 } BarStructure;
 
-void* ShowVariables(void* arg); // MetrState* state
-//void* ShowPanel(void* arg); 
 void ShowPanel(MetrState* metSt); 
 void* RedrawWindow(void* arg); // MetrState* state
 

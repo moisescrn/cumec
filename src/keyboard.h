@@ -22,7 +22,7 @@
 
 /* **************** MODIFYING FUNCTIONS **************** */
 /* These functions modify the metre of the metronome
- * and will be invoked by keyboard commands
+ * and will be invoked by keyboard commands in display.c
 */
 void ChangeBeat(TimeSignature* metre, char new_beat_char);
 void IncreaseBPM(TimeSignature* metre);
@@ -30,14 +30,5 @@ void DecreaseBPM(TimeSignature* metre);
 void Increase10BPM(TimeSignature* metre);
 void Decrease10BPM(TimeSignature* metre);
 
-/* **************** KEYWORD COMMANDS **************** */
-/* I want that pressing one key is enough to quit, to pause or to resume
- * the metronome, but by default, pressing enter is necessary.
- * To avoid it we need to disable line buffering on the terminal
- * with help of termios
- * set_raw_mode() disables line buffering
- * and restore_terminal() resets it to the normal usage
-*/
-void* KeyboardCmds(void* arg);     // MetrState* state
 
 #endif /* KEYBOARD_H */

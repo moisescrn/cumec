@@ -74,7 +74,6 @@ void draw_bar(int cy, int cx, int width, int color, bool filled) {
     */
 }
 
-
 void get_bars_conf(int max_x, TimeSignature* metre, BarStructure* bars) {
     int len = metre->length;
     int distance = 8; // distance between bars 
@@ -98,57 +97,6 @@ void get_bars_conf(int max_x, TimeSignature* metre, BarStructure* bars) {
     }
 }
 
-void* ShowVariables(void* arg) {
-    MetrState* state = (MetrState*) arg;
-    /* --- Comparing variables ---*/
-    // Update output only if any variable has changed
-    TimeSignature previous_metre;
-    memcpy(&previous_metre,state->metre,sizeof(TimeSignature)); // copy initial state
-    bool previous_paused = false;
-    bool previous_quit = false;
-
-    printf(CURSOR_HIDE);
-    printf("============ CUMEC ============\n");
-    printf(CURSOR_SAVE);
-    printf(CURSOR_RESTORE);
-    printf(CLEAR_LINE "Beat: %u\n", state->metre->length);
-    printf(CLEAR_LINE "Structure: \n");
-    for (int i = 0; i < state->metre->length; i++) {
-        printf(CLEAR_LINE "%.2f\n", (state->metre->proportions)[i]);
-    }
-    printf("\n");
-    printf(CLEAR_LINE "BPM: %u\n", state->metre->bpm);
-    printf(CLEAR_LINE "Paused: %d\n", *(state->paused));
-    printf(CLEAR_LINE "Quit: %d\n", *(state->quit));
-
-    while ( !(*(state->quit)) ) {
-        // Check if any variable has changed
-        if ( memcmp(state->metre, &previous_metre, sizeof(TimeSignature)) != 0 ||
-             memcmp(state->paused, &previous_paused, sizeof(bool)) != 0 ||
-             memcmp(state->quit, &previous_quit, sizeof(bool)) != 0 ) {
-
-            printf(CURSOR_RESTORE);
-            printf(CLEAR_LINE "Beat: %u\n", state->metre->length);
-            printf(CLEAR_LINE "Structure: \n");
-            for (int i = 0; i < state->metre->length; i++) {
-                printf(CLEAR_LINE "%.2f\n", (state->metre->proportions)[i]);
-            }
-            printf("\n");
-            printf(CLEAR_LINE "BPM: %u\n", state->metre->bpm);
-            printf(CLEAR_LINE "Paused: %d\n", *(state->paused));
-            printf(CLEAR_LINE "Quit: %d\n", *(state->quit));
-            fflush(stdout);
-
-            // Update comparison variables
-            previous_metre = *(state->metre);
-            previous_paused = *(state->paused);
-            previous_quit = *(state->quit);
-        }
-    }
-    printf(CURSOR_SHOW);
-    //printf("\n");
-}
-
 void ShowPanel(MetrState* state) {
     //MetrState* state = (MetrState*) arg;
     int max_y, max_x;
@@ -165,6 +113,7 @@ void ShowPanel(MetrState* state) {
     init_pair(TEXT_PAIR, COLOR_CYAN, COLOR_BLACK);
     init_pair(BOX_PAIR, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(BAR_PAIR, COLOR_RED, COLOR_BLACK);
+    init_pair(4, COLOR_BLACK, COLOR_BLACK);
 
     // Heights for the shown variables
     int metre_height = max_y / 4 - 1;
@@ -178,6 +127,7 @@ void ShowPanel(MetrState* state) {
 
     // BARS
     BarStructure bars_conf; // configuration of bars (position, size, filling)
+
     get_bars_conf(max_x, state->metre, &bars_conf);
 
     for (int i = 1; i <= state->metre->length; i++) {
@@ -197,12 +147,34 @@ void* RedrawWindow(void* arg) {
     // This function reads input and refreshes the window after each change
     MetrState* state = (MetrState*) arg;
 
-    int ch;
-    ch = getch();
-    while ( ch != 'q' ) {
+    int c; // Character that stores the command
+    c = getch();
+    while ( true ) {
+        if ( strchr("0123456789",c) ) {
+            ChangeBeat(state->metre,c);
+        }
+
+        else {
+            switch (c) {
+                case 'q': 
+                          *(state->quit) = true;            // quit metronome
+                          *(state->paused) = true;          // pause to exit the loop
+                          endwin(); return NULL; break;
+                case 'p': *(state->paused) = !(*(state->paused)); break; // pause and resume 
+                // Modifiying functions
+                case '+': IncreaseBPM(state->metre); break;
+                case '-': DecreaseBPM(state->metre); break;
+                case '.': Increase10BPM(state->metre); break;
+                case ',': Decrease10BPM(state->metre); break;
+//                default: printf("uknown command\n"); break;
+            }
+        }
+
         ShowPanel( (void*) state );  
-        ch = getch();
+
+        c = getch();
+
+        erase();
         refresh();
     }
-    endwin();
 }
