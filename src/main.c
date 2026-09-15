@@ -33,13 +33,9 @@ void Start(MetrState* metSt) {
     pthread_t threadMetr, threadKeyboard, threadDisplay;
 
     pthread_create(&threadMetr, NULL, Metronome, (void*) metSt);
-//    pthread_create(&threadKeyboard, NULL, KeyboardCmds, (void*) metSt);
     pthread_create(&threadDisplay, NULL, RedrawWindow, (void* ) metSt);
-//    pthread_create(&threadDisplay, NULL, ShowPanel, (void* ) metSt);
- //   pthread_create(&threadDisplay, NULL, ShowVariables, (void* ) metSt);
 
     pthread_join(threadMetr, NULL);
-    pthread_join(threadKeyboard, NULL);
     pthread_join(threadDisplay, NULL);
 }
 

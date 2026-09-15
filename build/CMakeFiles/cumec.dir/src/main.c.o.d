@@ -81,4 +81,5 @@ CMakeFiles/cumec.dir/src/main.c.o: \
  /usr/include/bits/termios-misc.h /usr/include/bits/termios-baud.h \
  /usr/include/sys/ttydefaults.h \
  /home/ringanaaro/Programacion/cumec/src/display.h /usr/include/curses.h \
- /usr/include/ncurses_dll.h /usr/include/unctrl.h /usr/include/curses.h
+ /usr/include/ncurses_dll.h /usr/include/unctrl.h /usr/include/curses.h \
+ /home/ringanaaro/Programacion/cumec/src/metres.h

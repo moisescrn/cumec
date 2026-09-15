@@ -21,9 +21,12 @@
 void ChangeBeat(TimeSignature* metre, char new_length_char) {
     unsigned int new_length = new_length_char - '0';
     metre->length = new_length;
-    // set normal proportions       [[[ TO BE CHANGED!!!! ]]]
+    (metre->strong)[0] = 1;
+
     for (int i = 0; i < new_length; i++) {
-        (metre->proportions)[i] = 1;
+        (metre->proportions)[i] = 1.0f;
+        if (i != 0)
+            (metre->strong)[i] = 0;
     }
 }
 

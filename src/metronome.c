@@ -79,12 +79,12 @@ playing:
 
     // Let's interpreat a beat of 0, as if it had no strong beats
     if (state->metre->length == 0) {
-        while ( !(*(state->paused)) ) { // stops when we change the variable paused to true
+        while ( !(*(state->paused)) || state->metre->length == 0 ) { // stops when we change the variable paused to true or when we change the beat
             time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
             time_pulses = time_pulses - 100000;
 
             usleep(time_pulses);
-            SDL_PutAudioStreamData(stream,wavBuffer2, wavLength2); // load audio to stream
+            SDL_PutAudioStreamData(stream,wavBuffer1, wavLength1); // load audio to stream
             SDL_ResumeAudioStreamDevice(stream);
             SDL_Delay(100);
         }
@@ -94,7 +94,7 @@ playing:
         time_pulses = (useconds_t) 60000000 / (state->metre->bpm);
 //        time_pulses = time_pulses - 100000;
 
-        usleep((time_pulses - 100000) * (state->metre->proportions)[(counter-1)%(state->metre->length)]);   // CHECK THE IF DURATION SHOULD BE LONGER
+        usleep(time_pulses * (state->metre->proportions)[(counter-1)%(state->metre->length)] - 100000); // time * proportion - 100ms
         if (state->metre->length == 0) // we could set the beat to 0, while being inside the loop
             goto playing;
         if ( contains(state->metre->strong, state->metre->length-1, counter%(state->metre->length)+1) ) {    // strong beat (check if it is inside the array of strong beats)
@@ -122,6 +122,7 @@ quit:
     // If metronome has been paused, it will enter this loop
     // waiting for being resumed
     while (true) {
+        sleep(1);
         if ( !(*(state->paused)) )     // resume
             goto playing;
         if ( (*(state->quit)) )        // quit while being in pause mode

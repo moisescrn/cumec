@@ -64,5 +64,13 @@ CMakeFiles/inclHead.dir/src/display.c.o: \
  /usr/include/SDL3/SDL_timer.h /usr/include/errno.h \
  /usr/include/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h /usr/include/curses.h \
+ /usr/include/asm-generic/errno-base.h \
+ /home/ringanaaro/Programacion/cumec/src/keyboard.h \
+ /usr/include/termios.h /usr/include/bits/termios.h \
+ /usr/include/bits/termios-struct.h /usr/include/bits/termios-c_cc.h \
+ /usr/include/bits/termios-c_iflag.h /usr/include/bits/termios-c_oflag.h \
+ /usr/include/bits/termios-c_cflag.h /usr/include/bits/termios-cbaud.h \
+ /usr/include/bits/termios-c_lflag.h /usr/include/bits/termios-tcflow.h \
+ /usr/include/bits/termios-misc.h /usr/include/bits/termios-baud.h \
+ /usr/include/sys/ttydefaults.h /usr/include/curses.h \
  /usr/include/ncurses_dll.h /usr/include/unctrl.h /usr/include/curses.h
