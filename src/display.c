@@ -166,7 +166,6 @@ void* RedrawWindow(void* arg) {
                 case '-': DecreaseBPM(state->metre); break;
                 case '.': Increase10BPM(state->metre); break;
                 case ',': Decrease10BPM(state->metre); break;
-//                default: printf("uknown command\n"); break;
             }
         }
 

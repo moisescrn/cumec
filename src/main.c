@@ -39,11 +39,11 @@ void Start(MetrState* metSt) {
     pthread_join(threadDisplay, NULL);
 }
 
-void DefMetrState(bool* pause, bool* Qu, TimeSignature* timeSign, MetrState* MS) {
+void DefMetrState(bool* pause, bool* Qu, TimeSignature* timeSign, MetrState* metSt) {
     // Define the MetrState
-    MS->metre = timeSign;
-    MS->paused = pause;
-    MS->quit = Qu;
+    metSt->metre = timeSign;
+    metSt->paused = pause;
+    metSt->quit = Qu;
 }
 
 int main() {

@@ -19,7 +19,7 @@
 
 /* --------- List of METRES --------- */
 /* Traditional metres */
-
+// I guess I do not need to store traditional metres 
 
 
 
