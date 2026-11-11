@@ -166,6 +166,8 @@ void* RedrawWindow(void* arg) {
                 case '-': DecreaseBPM(state->metre); break;
                 case '.': Increase10BPM(state->metre); break;
                 case ',': Decrease10BPM(state->metre); break;
+                case 'd': DoubleBPM(state->metre); break;
+                case 'h': HalveBPM(state->metre); break;
             }
         }
 

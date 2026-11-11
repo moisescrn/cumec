@@ -17,7 +17,6 @@
 
 #include "keyboard.h"
 
-/* **************** MODIFYING FUNCTIONS **************** */
 void ChangeBeat(TimeSignature* metre, char new_length_char) {
     unsigned int new_length = new_length_char - '0';
     metre->length = new_length;
@@ -51,4 +50,17 @@ void Decrease10BPM(TimeSignature* metre) {
         return;
     }
     metre->bpm -= 10;
+}
+
+void DoubleBPM(TimeSignature* metre) {
+    if (metre-> bpm > 300)
+        return;
+    metre->bpm *= 2;
+}
+
+void HalveBPM(TimeSignature* metre) {
+    if (metre-> bpm % 2 == 1) {
+      metre->bpm += 1; // round up
+    }
+    metre->bpm /= 2;
 }

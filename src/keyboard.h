@@ -29,6 +29,8 @@ void IncreaseBPM(TimeSignature* metre);
 void DecreaseBPM(TimeSignature* metre);
 void Increase10BPM(TimeSignature* metre);
 void Decrease10BPM(TimeSignature* metre);
+void DoubleBPM(TimeSignature* metre); // due to the duration of the beats the maximum is 600 bpm, so be careful!
+void HalveBPM(TimeSignature* metre); // if odd number -> rounded up
 
 
 #endif /* KEYBOARD_H */
