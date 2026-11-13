@@ -1,5 +1,5 @@
 q: quit
-p: pause/resume
+space: pause/resume
 
 +: increase bpm
 -: decrease bpm
@@ -9,4 +9,4 @@ p: pause/resume
 
 number: change beat to that number
 
-
+c: show list of commands

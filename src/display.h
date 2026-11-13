@@ -32,14 +32,15 @@ typedef struct {
     bool filling[MAX_LENGTH];
 } BarStructure;
 
-void ShowPanel(MetrState* metSt); 
-void* RedrawWindow(void* arg); // MetrState* state
-
 void draw_bar(int cy, int cx, int width, int color, bool filled);
 void get_bars_conf(int max_x, TimeSignature* metre, BarStructure* bars);
 
+void ShowPanel(MetrState* metSt); 
+void* RedrawWindow(void* arg); // MetrState* state
+
+void close_window(WINDOW* win);
+WINDOW* draw_commands_window();
 void draw_window();
-void draw_commands_window();
 void draw_center_window();
 void total();
 

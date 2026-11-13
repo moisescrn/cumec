@@ -12,7 +12,7 @@ For the moment the commands are the following
 | Command | Action                                                    |
 | ------- | --------------------------------------------------------- |
 | q       | quit                                                      |
-| p       | toggle between pause and resume                           |
+| Space   | toggle between pause and resume                           |
 | +       | increase beats per minute (bpm) by 1                      |
 | -       | decrease bpm by 1                                         |
 | .       | increase bpm by 10                                        |

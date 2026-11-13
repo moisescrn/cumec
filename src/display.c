@@ -98,7 +98,6 @@ void get_bars_conf(int max_x, TimeSignature* metre, BarStructure* bars) {
 }
 
 void ShowPanel(MetrState* state) {
-    //MetrState* state = (MetrState*) arg;
     int max_y, max_x;
 
     initscr();    // creates stdscr (standard screen)
@@ -113,7 +112,6 @@ void ShowPanel(MetrState* state) {
     init_pair(TEXT_PAIR, COLOR_CYAN, COLOR_BLACK);
     init_pair(BOX_PAIR, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(BAR_PAIR, COLOR_RED, COLOR_BLACK);
-    init_pair(4, COLOR_BLACK, COLOR_BLACK);
 
     // Heights for the shown variables
     int metre_height = max_y / 4 - 1;
@@ -146,6 +144,7 @@ void ShowPanel(MetrState* state) {
 void* RedrawWindow(void* arg) {
     // This function reads input and refreshes the window after each change
     MetrState* state = (MetrState*) arg;
+    bool show_commands_window = false;
 
     int c; // Character that stores the command
     c = getch();
@@ -160,7 +159,7 @@ void* RedrawWindow(void* arg) {
                           *(state->quit) = true;            // quit metronome
                           *(state->paused) = true;          // pause to exit the loop
                           endwin(); return NULL; break;
-                case 'p': *(state->paused) = !(*(state->paused)); break; // pause and resume 
+                case ' ': *(state->paused) = !(*(state->paused)); break; // pause and resume 
                 // Modifiying functions
                 case '+': IncreaseBPM(state->metre); break;
                 case '-': DecreaseBPM(state->metre); break;
@@ -168,8 +167,10 @@ void* RedrawWindow(void* arg) {
                 case ',': Decrease10BPM(state->metre); break;
                 case 'd': DoubleBPM(state->metre); break;
                 case 'h': HalveBPM(state->metre); break;
+                case 'c': WINDOW* comm_win = draw_commands_window(); wgetch(comm_win); close_window(comm_win); break;
             }
         }
+
 
         ShowPanel( (void*) state );  
 
@@ -178,4 +179,42 @@ void* RedrawWindow(void* arg) {
         erase();
         refresh();
     }
+}
+
+WINDOW* draw_commands_window() {
+    int max_y, max_x;
+    getmaxyx(stdscr, max_y, max_x);
+
+    int window_height = 10;       // number of aviable lines to write
+    int window_width = 45;
+    int start_y = (max_y - window_height) / 2 + 1;
+    int start_x = (max_x - window_width) / 2 + 1;
+
+    WINDOW* commands_wind = newwin(window_height, window_width, start_y, start_x);
+    werase(commands_wind);
+
+    // surrounding box
+    wattron(commands_wind, COLOR_PAIR(BOX_PAIR));
+    box(commands_wind, 0, 0);
+    wattroff(commands_wind, COLOR_PAIR(BOX_PAIR));
+
+    // list of commands
+    wattron(commands_wind, COLOR_PAIR(TEXT_PAIR));
+    mvwprintw(commands_wind, 2, 2, "c       |  show this command's window");
+    mvwprintw(commands_wind, 3, 2, "SPACE   |  toggle pause and resume");
+    mvwprintw(commands_wind, 4, 2, "+/-     |  increase/decrease by 1 bpm");
+    mvwprintw(commands_wind, 5, 2, "./,     |  increase/decrease by 10 bpm");
+    mvwprintw(commands_wind, 6, 2, "NUMBER  |  change to beat of that number");
+    wattroff(commands_wind, COLOR_PAIR(BOX_PAIR));
+
+    wrefresh(commands_wind);
+
+    return commands_wind;
+
+}
+
+void close_window(WINDOW* win) {
+    delwin(win);
+    touchwin(stdscr);
+    refresh();
 }
